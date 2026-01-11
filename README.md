@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/workspaces/ruzait.github.io/images/poster.png" alt="My Profile Website Preview" width="100%">
+  <img src="https://github.com/ruzait/ruzait.github.io/blob/main/images/poster.png" alt="My Profile Website Preview" width="100%">
 </p>
 # 👨‍💻 My Profile Website
 
