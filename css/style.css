@@ -909,3 +909,232 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-color);
 }
+
+
+/* =================================
+   GLOBAL SAFETY (NO OVERFLOW)
+================================= */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* =================================
+   HERO SECTION (MOBILE)
+================================= */
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 120px;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-name {
+    font-size: 2.5rem;
+  }
+
+  .typing-text,
+  .cursor {
+    font-size: 1.2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .circuit-animation {
+    width: 220px;
+    height: 220px;
+  }
+
+  .pulse-circle {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* =================================
+   PROFILE SECTION
+================================= */
+@media (max-width: 768px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .profile-highlights {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .image-frame {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+/* =================================
+   SPECIALIZATION
+================================= */
+@media (max-width: 576px) {
+  .specialization-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    padding: 1.5rem;
+  }
+
+  .spec-icon {
+    width: 65px;
+    height: 65px;
+    font-size: 1.5rem;
+  }
+}
+
+/* =================================
+   SKILLS
+================================= */
+@media (max-width: 576px) {
+  .skills-container {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-category h3 {
+    text-align: center;
+  }
+}
+
+/* =================================
+   PROJECTS
+================================= */
+@media (max-width: 576px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-image img {
+    height: 200px;
+  }
+}
+
+/* =================================
+   TIMELINE (MOBILE)
+================================= */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    left: 0 !important;
+    padding-left: 3rem !important;
+    padding-right: 0 !important;
+  }
+
+  .timeline-dot {
+    left: 10px !important;
+    right: auto !important;
+  }
+
+  .timeline-content {
+    padding: 1rem;
+  }
+}
+
+/* =================================
+   CONTACT
+================================= */
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .social-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* =================================
+   BUTTONS
+================================= */
+@media (max-width: 480px) {
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* =================================
+   NAVBAR (FINAL & CORRECT)
+================================= */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-container {
+    width: 100%;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    background: rgba(26, 26, 46, 0.97);
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 2rem 0;
+    transition: left 0.3s ease;
+    z-index: 999;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-menu li {
+    width: 100%;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 12px 0;
+    font-size: 1.1rem;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .logo-text {
+    font-size: 1rem;
+  }
+}
