@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" width="400" height="150">
+  <defs>
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5ff"/>
+      <stop offset="50%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#9b59b6"/>
+    </linearGradient>
+    
+    <linearGradient id="solidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00f5ff"/>
+      <stop offset="100%" style="stop-color:#9b59b6"/>
+    </linearGradient>
+    
+    <filter id="glowEffect">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="dropShadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#00f5ff" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- Logo Container -->
+  <g transform="translate(20, 20)">
+    
+    <!-- Abstract geometric accent -->
+    <polygon points="0,55 15,30 30,55 15,80" fill="url(#mainGrad)" opacity="0.3" filter="url(#glowEffect)"/>
+    
+    <!-- Letter R - Custom bold font -->
+    <g filter="url(#dropShadow)">
+      <text x="20" y="95" 
+            font-family="'Poppins', 'Arial Black', sans-serif" 
+            font-size="90" 
+            font-weight="900" 
+            fill="url(#mainGrad)">R</text>
+    </g>
+    
+    <!-- Glowing underline accent for R -->
+    <rect x="20" y="100" width="60" height="4" rx="2" fill="url(#solidGrad)" filter="url(#glowEffect)" opacity="0.8"/>
+    
+    <!-- Letter Z -->
+    <g filter="url(#dropShadow)">
+      <text x="85" y="95" 
+            font-family="'Poppins', 'Arial Black', sans-serif" 
+            font-size="90" 
+            font-weight="900" 
+            fill="url(#mainGrad)">Z</text>
+    </g>
+    
+    <!-- Electric bolt accent for Z -->
+    <path d="M 130 30 L 138 50 L 128 50 L 136 70 L 125 45 L 135 45 Z" 
+          fill="url(#solidGrad)" 
+          filter="url(#glowEffect)"
+          opacity="0.9"/>
+    
+    <!-- Letter D -->
+    <g filter="url(#dropShadow)">
+      <text x="150" y="95" 
+            font-family="'Poppins', 'Arial Black', sans-serif" 
+            font-size="90" 
+            font-weight="900" 
+            fill="url(#mainGrad)">D</text>
+    </g>
+    
+    <!-- Tech node on D -->
+    <circle cx="235" cy="60" r="6" fill="none" stroke="url(#solidGrad)" stroke-width="2" filter="url(#glowEffect)"/>
+    <circle cx="235" cy="60" r="2" fill="#00f5ff"/>
+    
+    <!-- Decorative circuit lines -->
+    <line x1="250" y1="75" x2="290" y2="75" stroke="url(#solidGrad)" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/>
+    <circle cx="295" cy="75" r="3" fill="#00f5ff" filter="url(#glowEffect)"/>
+    
+    <line x1="5" y1="75" x2="-5" y2="75" stroke="url(#solidGrad)" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/>
+    <circle cx="-10" cy="75" r="3" fill="#9b59b6" filter="url(#glowEffect)"/>
+    
+    <!-- Small floating particles -->
+    <circle cx="270" cy="35" r="2" fill="#00f5ff" opacity="0.7"/>
+    <circle cx="320" cy="50" r="1.5" fill="#667eea" opacity="0.6"/>
+    <circle cx="285" cy="110" r="1.5" fill="#9b59b6" opacity="0.5"/>
+    <circle cx="15" cy="25" r="2" fill="#4ecdc4" opacity="0.6"/>
+    
+  </g>
+</svg>
