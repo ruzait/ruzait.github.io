@@ -6,6 +6,24 @@ AOS.init({
     mirror: false
 });
 
+// Back to Top Button
+const backToTop = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
 // Mobile Navigation
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -115,76 +133,39 @@ if (skillsSection) {
     skillsObserver.observe(skillsSection);
 }
 
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
+// Contact form handling with mailto
+const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const subject = formData.get('subject');
-        const message = formData.get('message');
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
         
-        // Simple validation
         if (!name || !email || !subject || !message) {
             showNotification('Please fill in all fields', 'error');
             return;
         }
         
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             showNotification('Please enter a valid email address', 'error');
             return;
         }
         
-        // Simulate form submission
-        showNotification(' 😊 Haa!, you can send msg from your mail! 📧, I\'ll get back to you soon. ');
+        const recipient = 'ruzaitahamedzainudeen@gmail.com';
+        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+        
+        window.location.href = mailtoLink;
+        showNotification('Opening email client... Thank you!', 'success');
         contactForm.reset();
     });
 }
 
 
-// mailto version
-/* const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    // Validation
-    if (!name || !email || !subject || !message) {
-        alert('Please fill in all fields');
-        return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address');
-        return;
-    }
-
-    // Prepare mailto link
-    const recipient = 'ruzaitahamedzainudeen@gmail.com'; // Your email
-    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message)}`;
-
-    // Open user's email client
-    window.location.href = mailtoLink;
-
-    // Optionally reset the form
-    contactForm.reset();
-
-    // Simulate form submission
-    showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-    contactForm.reset();
-});
- */
 
 // Notification system
 function showNotification(message, type) {
@@ -195,13 +176,15 @@ function showNotification(message, type) {
         <span>${message}</span>
     `;
 
-    // Add notification styles
+    const bgColor = type === 'success' ? 'var(--accent-color)' : 'var(--secondary-color)';
+    const textColor = '#ffffff';
+
     notification.style.cssText = `
         position: fixed;
-        top: 20px;
+        top: 90px;
         right: 20px;
-        background: ${type === 'success' ? 'var(--accent-color)' : 'var(--secondary-color)'};
-        color: var(--dark-bg);
+        background: ${bgColor};
+        color: ${textColor};
         padding: 1rem 1.5rem;
         border-radius: 10px;
         display: flex;
@@ -212,16 +195,15 @@ function showNotification(message, type) {
         transform: translateX(400px);
         transition: transform 0.3s ease;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-width: 350px;
     `;
 
     document.body.appendChild(notification);
 
-    // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
 
-    // Remove after 5 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(400px)';
         setTimeout(() => {
@@ -376,14 +358,3 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-/* document.getElementById("contact-form").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent default form submission
-
-  emailjs.sendForm('service_s0xq1ct', 'template_icckqya', this)
-    .then(function() {
-      alert("Message sent successfully!");
-      document.getElementById("contact-form").reset();
-    }, function(error) {
-      alert("Failed to send message: " + JSON.stringify(error));
-    });
-}); */
