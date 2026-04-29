@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar Power Generation for Home Application</title>
+  
+  <!-- Google Fonts (matches main portfolio) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Ion Icons (matches main portfolio) -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <style>
+    :root {
+      --eerie-black-1: #121212;
+      --eerie-black-2: #1e1e1e;
+      --jet: #383838;
+      --light-gray: #d6d6d6;
+      --gold-crayola: #e6b86a;
+      --white: #ffffff;
+      --fs-6: 14px;
+      --fw-300: 300;
+      --fw-400: 400;
+      --fw-500: 500;
+      --fw-600: 600;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--eerie-black-1);
+      color: var(--light-gray);
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .lab-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header Section */
+    .lab-header {
+      background: linear-gradient(135deg, var(--eerie-black-2) 0%, #2a2a2a 100%);
+      border: 1px solid var(--jet);
+      border-radius: 20px 20px 0 0;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lab-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-crayola), #f0d9a0, var(--gold-crayola));
+    }
+
+    .lab-icon {
+      font-size: 48px;
+      color: var(--gold-crayola);
+      margin-bottom: 15px;
+    }
+
+    .lab-title {
+      font-size: 32px;
+      font-weight: var(--fw-600);
+      color: var(--white);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .lab-category {
+      display: inline-block;
+      background: rgba(230, 184, 106, 0.15);
+      color: var(--gold-crayola);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: var(--fs-6);
+      font-weight: var(--fw-500);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Main Content */
+    .lab-main {
+      background: var(--eerie-black-2);
+      border-left: 1px solid var(--jet);
+      border-right: 1px solid var(--jet);
+      padding: 40px;
+    }
+
+    /* Section Styling */
+    .lab-section {
+      margin-bottom: 40px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gold-crayola);
+    }
+
+    .section-icon {
+      font-size: 24px;
+      color: var(--gold-crayola);
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: var(--fw-600);
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section-content {
+      padding-left: 36px;
+    }
+
+    .section-content p {
+      margin-bottom: 15px;
+      color: var(--light-gray);
+      font-weight: var(--fw-300);
+    }
+
+    /* Info Box */
+    .info-box {
+      background: rgba(230, 184, 106, 0.08);
+      border-left: 4px solid var(--gold-crayola);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0;
+    }
+
+    .info-box strong {
+      color: var(--gold-crayola);
+    }
+
+    /* Tables */
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .lab-table thead {
+      background: var(--jet);
+    }
+
+    .lab-table th {
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: var(--fw-500);
+      color: var(--gold-crayola);
+      font-size: var(--fs-6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .lab-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(56, 56, 56, 0.5);
+      color: var(--light-gray);
+      font-weight: var(--fw-300);
+    }
+
+    .lab-table tbody tr:hover {
+      background: rgba(230, 184, 106, 0.05);
+      transition: 0.3s;
+    }
+
+    .lab-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Lists */
+    .custom-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .custom-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      color: var(--light-gray);
+      font-weight: var(--fw-300);
+    }
+
+    .custom-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      background: var(--gold-crayola);
+      border-radius: 50%;
+    }
+
+    .numbered-list {
+      list-style: none;
+      counter-reset: step;
+      padding-left: 0;
+    }
+
+    .numbered-list li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 16px;
+      color: var(--light-gray);
+      font-weight: var(--fw-300);
+    }
+
+    .numbered-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--gold-crayola);
+      color: var(--eerie-black-1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: var(--fw-600);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--eerie-black-1);
+      border: 1px solid var(--jet);
+      border-radius: 10px;
+      padding: 20px;
+      overflow-x: auto;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .code-block::before {
+      content: 'CODE';
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 10px;
+      color: var(--gold-crayola);
+      letter-spacing: 2px;
+      font-weight: var(--fw-600);
+    }
+
+    pre {
+      margin: 0;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--light-gray);
+    }
+
+    /* Note Box */
+    .note-box {
+      background: rgba(56, 56, 56, 0.5);
+      border: 1px solid var(--jet);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .note-icon {
+      font-size: 20px;
+      color: var(--gold-crayola);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .note-box p {
+      margin: 0;
+      font-size: var(--fs-6);
+    }
+
+    /* References */
+    .reference-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .reference-list li {
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      background: rgba(56, 56, 56, 0.3);
+      border-radius: 8px;
+      border-left: 3px solid var(--gold-crayola);
+      font-size: var(--fs-6);
+      font-weight: var(--fw-300);
+      transition: 0.3s;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .reference-list li:hover {
+      background: rgba(56, 56, 56, 0.5);
+      transform: translateX(5px);
+    }
+
+    /* Footer */
+    .lab-footer {
+      background: var(--eerie-black-2);
+      border: 1px solid var(--jet);
+      border-top: none;
+      border-radius: 0 0 20px 20px;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--gold-crayola);
+      color: var(--eerie-black-1);
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: var(--fw-500);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: #d4a85a;
+      transform: translateX(-5px);
+    }
+
+    .lab-date {
+      color: var(--light-gray);
+      font-size: var(--fs-6);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Responsive */
+    @media (max-width: 575px) {
+      body {
+        padding: 10px;
+      }
+
+      .lab-header,
+      .lab-main,
+      .lab-footer {
+        padding: 20px;
+      }
+
+      .lab-icon {
+        font-size: 36px;
+      }
+
+      .lab-title {
+        font-size: 20px;
+        letter-spacing: 0.5px;
+      }
+
+      .lab-category {
+        font-size: 11px;
+        padding: 4px 14px;
+      }
+
+      .lab-main {
+        padding: 20px;
+      }
+
+      .section-header {
+        gap: 8px;
+      }
+
+      .section-icon {
+        font-size: 20px;
+      }
+
+      .section-title {
+        font-size: 16px;
+      }
+
+      .section-content {
+        padding-left: 0;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .reference-list li {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+
+      .lab-table {
+        font-size: 12px;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .lab-table th,
+      .lab-table td {
+        padding: 8px;
+        min-width: 80px;
+      }
+
+      .code-block {
+        padding: 15px;
+        font-size: 12px;
+      }
+
+      pre {
+        font-size: 12px;
+      }
+
+      .lab-footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .back-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .info-box,
+      .note-box {
+        padding: 12px 15px;
+      }
+
+      .numbered-list li {
+        padding-left: 35px;
+      }
+
+      .custom-list li {
+        padding-left: 24px;
+      }
+    }
+
+    @media (min-width: 576px) and (max-width: 767px) {
+      .lab-title {
+        font-size: 28px;
+      }
+
+      .lab-header,
+      .lab-main,
+      .lab-footer {
+        padding: 30px;
+      }
+
+      .section-content {
+        padding-left: 20px;
+      }
+
+      .lab-table {
+        font-size: 13px;
+      }
+
+      .lab-table th,
+      .lab-table td {
+        padding: 10px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .lab-title {
+        font-size: 32px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .lab-title {
+        font-size: 36px;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+
+      .lab-header,
+      .lab-main,
+      .lab-footer {
+        border: 1px solid #ccc;
+      }
+
+      .back-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="lab-container">
+    <!-- Header Section -->
+    <header class="lab-header">
+      <ion-icon name="school-outline" class="lab-icon"></ion-icon>
+      <h1 class="lab-title">Solar Power Generation</h1>
+      <span class="lab-category">Electrical Power Generation</span>
+    </header>
+
+    <main class="lab-main">
+      <!-- DATE -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="calendar-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Date</h2>
+        </div>
+        <div class="section-content">
+          <p><strong>16/02/2026</strong> (Monday)</p>
+        </div>
+      </section>
+
+      <!-- AIM/OBJECTIVES -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="flag-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Aim / Objectives</h2>
+        </div>
+        <div class="section-content">
+          <p>To design the solar power generation system for home application using MATLAB/Simulink.</p>
+        </div>
+      </section>
+
+      <!-- APPARATUS -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="construct-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Apparatus</h2>
+        </div>
+        <div class="section-content">
+          <ul class="custom-list">
+            <li>Computer</li>
+            <li>MATLAB Simulink</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- THEORY -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="school-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Theory</h2>
+        </div>
+        <div class="section-content">
+          <p>power generation systems use photovoltaic (PV) panels to convert solar energy into electrical energy. The output of a PV array is direct current (DC), which is not directly suitable for household appliances. Therefore, an inverter is used to convert DC into alternating current (AC).</p>
+          <p>In a typical solar home system, the PV array feeds power into a power electronic converter such as a Universal Bridge. The switching operation is controlled using a PWM (Pulse Width Modulation) generator. This helps to produce an AC waveform from the DC source.</p>
+          <p>However, the inverter output contains harmonics due to switching operations. To reduce these harmonics and improve the waveform quality, passive filters consisting of inductors and capacitors are used. A properly filtered output ensures safe and efficient operation of household electrical devices.</p>
+          <p>Simulation using MATLAB Simulink allows modeling and analysis of the system performance before practical implementation.</p>
+        </div>
+      </section>
+
+      <!-- CIRCUIT DIAGRAM -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="git-branch-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Circuit Diagram</h2>
+        </div>
+        <div class="section-content">
+          <figure style="margin: 20px 0; text-align: center;">
+            <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
+              <img src="imgs/soler1.png" alt="Solar Power Generation Circuit Diagram" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
+            </div>
+            <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
+              Figure 1: Simulation model of solar power generation system for home application
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- PROCEDURE -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="git-compare-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Procedure</h2>
+        </div>
+        <div class="section-content">
+          <p><em style="color: var(--gold-crayola); font-size: var(--fs-6);">Note: Written in past passive voice as per laboratory report format.</em></p>
+          <ol class="numbered-list">
+            <li>A new blank model was created in MATLAB Simulink.</li>
+            <li>Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
+            <li>The circuit model was constructed according to the given simulation diagram.</li>
+            <li>The PV Array module was configured by selecting the A10Green Technology A10J-M60-230 module.</li>
+            <li>The Universal Bridge block was configured with 2 bridge arms using IGBT/Diodes as the power electronic devices.</li>
+            <li>The PWM Generator (2-Level) block was configured as a single-phase full-bridge (4 pulses) with internal reference signal generation enabled./li>
+            <li>All capacitor values in the circuit were set to 0.006 F.</li>
+            <li>Inductance values were set appropriately.</li>
+            <li>The simulation was run.</li>
+            <li>Output voltage waveforms were observed and recorded with and without the passive filter.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- OBSERVATIONS -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="eye-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Observations</h2>
+        </div>
+        <div class="section-content">
+          <div class="section-content">
+          <figure style="margin: 20px 0; text-align: center;">
+            <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
+              <img src="imgs/soler2.png" alt="Simulated Output Voltage with Passive Filter" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
+            </div>
+            <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
+              Figure 3: Simulated Output Voltage with Passive Filter
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="stats-chart-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Results</h2>
+        </div>
+        <div class="section-content">
+          <p>The solar power generation system was successfully simulated. Output voltage waveforms were obtained, and it was observed that the inclusion of passive filters improved the waveform quality significantly.</p>
+        </div>
+      </section>
+
+      <!-- DISCUSSION -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="chatbubble-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Discussion</h2>
+        </div>
+        <div class="section-content">
+          <p>An inverter is an electronic device that converts DC power into AC power. In this experiment, the Universal Bridge acted as the inverter, controlled by a PWM generator.</p>
+
+<p>Passive filters were used to reduce harmonics in the output waveform. Without filtering, the inverter output contained switching distortions. With the addition of capacitors, these distortions were reduced, resulting in a smoother waveform.</p>
+
+<p>DC power is converted into AC because most household appliances operate on AC supply. Therefore, the conversion is essential for practical home applications of solar energy systems.</p>
+        </div>
+      </section>
+
+      <!-- CONCLUSION -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="checkmark-done-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Conclusion</h2>
+        </div>
+        <div class="section-content">
+          <p>The solar power generation system for home application was successfully designed and simulated using MATLAB Simulink. The results showed that passive filters play a crucial role in improving output waveform quality. The system is suitable for supplying AC power to domestic loads.</p>
+        </div>
+      </section>
+
+      <!-- REFERENCES -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="library-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">References</h2>
+        </div>
+        <div class="section-content">
+          <ul class="reference-list">
+            <li>Chapman, S.J. (2019) <em>MATLAB Programming for Engineers</em>. 6th Edition. Cengage Learning: Boston, MA.</li>
+            <li>Kumar, R. and Singh, S. (2020) 'Solar PV power generation using MATLAB/Simulink', <em>International Journal of Renewable Energy Research</em>, 10(2), pp. 567-575.</li>
+            <li>MathWorks (2023) <em>Solar Power Generation with Simscape Electrical</em>, Available at: https://www.mathworks.com/help/physmod/sps/ (Accessed: 16 February 2026).</li>
+            <li>Green, M.A. (2016) 'Solar cell efficiency tables (version 48)', <em>Progress in Photovoltaics</em>, 24(7), pp. 905-913.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="lab-footer">
+      <a href="../index.html" class="back-btn">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="lab-date">
+        <ion-icon name="time-outline"></ion-icon>
+        <span>Lab completed: 16/02/2026</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
