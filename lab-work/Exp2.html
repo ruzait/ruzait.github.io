@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solar Power Generation for Home Application</title>
+  <title>Simulation of Wind Turbine with DC Motor</title>
   
   <!-- Google Fonts (matches main portfolio) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -539,7 +539,7 @@
     <!-- Header Section -->
     <header class="lab-header">
       <ion-icon name="school-outline" class="lab-icon"></ion-icon>
-      <h1 class="lab-title">Solar Power Generation</h1>
+      <h1 class="lab-title">Simulation of Wind Turbine with DC Motor</h1>
       <span class="lab-category">Electrical Power Generation</span>
     </header>
 
@@ -551,7 +551,7 @@
           <h2 class="section-title">Date</h2>
         </div>
         <div class="section-content">
-          <p><strong>16/02/2026</strong> (Monday)</p>
+          <p><strong>23/02/2026</strong> (Monday)</p>
         </div>
       </section>
 
@@ -562,10 +562,71 @@
           <h2 class="section-title">Aim / Objectives</h2>
         </div>
         <div class="section-content">
-          <p>To design the solar power generation system for home application using MATLAB/Simulink.</p>
+          <p>To design and simulate wind power generation using a DC motor in MATLAB Simulink.</p>
         </div>
       </section>
 
+      <!-- NOTATION -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="list-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Notation</h2>
+        </div>
+        <div class="section-content">
+          <table class="lab-table">
+            <thead>
+              <tr>
+                <th>Notation</th>
+                <th>Description</th>
+                <th>Unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>V</td>
+                <td>Voltage</td>
+                <td>Voltage (V)</td>
+              </tr>
+              <tr>
+                <td>I</td>
+                <td>Current</td>
+                <td>Amperes (A)</td>
+              </tr>
+              <tr>
+                <td>p</td>
+                <td>Power</td>
+                <td>Watts (W)</td>
+              </tr>
+              <tr>
+                <td>ω</td>
+                <td>Angular velocity</td>
+                <td>Radians per second (rad/s)</td>
+              </tr>
+              <tr>
+                <td>v</td>
+                <td>Wind speed</td>
+                <td>Meters per second (m/s)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- INTRODUCTION -->
+      <section class="lab-section">
+        <div class="section-header">
+          <ion-icon name="book-outline" class="section-icon"></ion-icon>
+          <h2 class="section-title">Introduction</h2>
+        </div>
+        <div class="section-content">
+          <p>Wind energy is a renewable energy source that converts kinetic energy into electrical energy. In this experiment, a DC motor is used to simulate the operation of a wind turbine. MATLAB Simulink is used to model the system and analyze the output characteristics for different wind speeds.</p>
+          <div class="info-box">
+            <strong>Note:</strong> MATLAB/Simulink provides powerful tools for modeling and simulating renewable energy systems with high accuracy.
+          </div>
+        </div>
+      </section>
+
+    
       <!-- APPARATUS -->
       <section class="lab-section">
         <div class="section-header">
@@ -574,8 +635,7 @@
         </div>
         <div class="section-content">
           <ul class="custom-list">
-            <li>Computer</li>
-            <li>MATLAB Simulink</li>
+            <li>Computer with MATLAB Simulink</li>
           </ul>
         </div>
       </section>
@@ -587,10 +647,7 @@
           <h2 class="section-title">Theory</h2>
         </div>
         <div class="section-content">
-          <p>power generation systems use photovoltaic (PV) panels to convert solar energy into electrical energy. The output of a PV array is direct current (DC), which is not directly suitable for household appliances. Therefore, an inverter is used to convert DC into alternating current (AC).</p>
-          <p>In a typical solar home system, the PV array feeds power into a power electronic converter such as a Universal Bridge. The switching operation is controlled using a PWM (Pulse Width Modulation) generator. This helps to produce an AC waveform from the DC source.</p>
-          <p>However, the inverter output contains harmonics due to switching operations. To reduce these harmonics and improve the waveform quality, passive filters consisting of inductors and capacitors are used. A properly filtered output ensures safe and efficient operation of household electrical devices.</p>
-          <p>Simulation using MATLAB Simulink allows modeling and analysis of the system performance before practical implementation.</p>
+          <p>Wind turbines convert wind energy into mechanical energy through rotating blades, which is then converted into electrical energy using a generator. In simulation, a DC machine represents the generator. The output depends on parameters such as wind speed, pitch angle, and generator characteristics. Increasing wind speed increases turbine speed and output power.<p>
         </div>
       </section>
 
@@ -603,10 +660,10 @@
         <div class="section-content">
           <figure style="margin: 20px 0; text-align: center;">
             <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
-              <img src="imgs/soler1.png" alt="Solar Power Generation Circuit Diagram" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
+              <img src="imgs/wind1.png" alt="Solar Power Generation Circuit Diagram" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
-              Figure 1: Simulation model of solar power generation system for home application
+              Figure 1: Simulation model of wind turbine with DC motor
             </figcaption>
           </figure>
         </div>
@@ -620,16 +677,16 @@
         </div>
         <div class="section-content">
           <ol class="numbered-list">
-            <li>A new blank model was created in MATLAB Simulink.</li>
-            <li>Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
-            <li>The circuit model was constructed according to the given simulation diagram.</li>
-            <li>The PV Array module was configured by selecting the A10Green Technology A10J-M60-230 module.</li>
-            <li>The Universal Bridge block was configured with 2 bridge arms using IGBT/Diodes as the power electronic devices.</li>
-            <li>The PWM Generator (2-Level) block was configured as a single-phase full-bridge (4 pulses) with internal reference signal generation enabled./li>
-            <li>All capacitor values in the circuit were set to 0.006 F.</li>
-            <li>Inductance values were set appropriately.</li>
-            <li>The simulation was run.</li>
-            <li>Output voltage waveforms were observed and recorded with and without the passive filter.</li>
+            <li> Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
+            <li> A new Simulink blank model was created in MATLAB.</li>
+            <li> The simulation circuit was constructed according to the given diagram.</li>
+            <li> In the wind turbine block, generator speed was set to 1.2 pu, pitch angle was set to 0°, and wind speed was set to 50 m/s.</li>
+            <li> In the DC machine block, the preset model of 5 HP, 240 V, 1750 RPM with a field voltage of 300 V was selected.</li>
+            <li> The load resistance was set to 50 Ω.</li>
+            <li> The gain value was set to 30/π.</li>
+            <li> The simulation was run and output waveforms were observed.</li>
+            <li> The wind speed was then changed to 75 m/s while keeping other parameters constant.</li>
+            <li> The simulation was run again and output waveforms were recorded for comparison.</li>
           </ol>
         </div>
       </section>
@@ -644,12 +701,13 @@
           <div class="section-content">
           <figure style="margin: 20px 0; text-align: center;">
             <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
-              <img src="imgs/soler2.png" alt="Simulated Output Voltage with Passive Filter" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
+              <img src="imgs/wind2.png" alt="Simulated Output Voltage with Passive Filter" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
               Figure 2: Simulated Output Voltage with Passive Filter
             </figcaption>
           </figure>
+          <p>Output speed waveforms were obtained for wind speeds of 50 m/s and 75 m/s.</p>
         </div>
       </section>
 
@@ -660,7 +718,7 @@
           <h2 class="section-title">Results</h2>
         </div>
         <div class="section-content">
-          <p>The solar power generation system was successfully simulated. Output voltage waveforms were obtained, and it was observed that the inclusion of passive filters improved the waveform quality significantly.</p>
+          <p>The output speed waveforms for wind speeds of 50 m/s and 75 m/s were successfully obtained, showing an increase in speed with higher wind velocity.</p>
         </div>
       </section>
 
@@ -671,11 +729,11 @@
           <h2 class="section-title">Discussion</h2>
         </div>
         <div class="section-content">
-          <p>An inverter is an electronic device that converts DC power into AC power. In this experiment, the Universal Bridge acted as the inverter, controlled by a PWM generator.</p>
-
-<p>Passive filters were used to reduce harmonics in the output waveform. Without filtering, the inverter output contained switching distortions. With the addition of capacitors, these distortions were reduced, resulting in a smoother waveform.</p>
-
-<p>DC power is converted into AC because most household appliances operate on AC supply. Therefore, the conversion is essential for practical home applications of solar energy systems.</p>
+          <p>Wind power generation works by converting kinetic energy of wind into mechanical energy and then into electrical energy using a generator.</p>
+          <p>Pitch angle is the angle of turbine blades relative to wind direction and is used to control output power.</p>
+          <p>The output of wind turbines is generally AC, but in this simulation, a DC machine is used, so the output is DC.</p>
+          <p>The output power is affected by wind speed, pitch angle, air density, and turbine efficiency.</p>
+          <p>The gain block is used to scale the signal appropriately within the simulation.</p>
         </div>
       </section>
 
@@ -686,7 +744,7 @@
           <h2 class="section-title">Conclusion</h2>
         </div>
         <div class="section-content">
-          <p>The solar power generation system for home application was successfully designed and simulated using MATLAB Simulink. The results showed that passive filters play a crucial role in improving output waveform quality. The system is suitable for supplying AC power to domestic loads.</p>
+          <p>The simulation of a wind turbine using a DC motor was successfully carried out. It was observed that increasing wind speed increases the output speed of the system. MATLAB Simulink is effective for analyzing wind energy systems.</p>
         </div>
       </section>
 
@@ -697,11 +755,12 @@
           <h2 class="section-title">References</h2>
         </div>
         <div class="section-content">
-          <ul class="reference-list">
-            <li>Chapman, S.J. (2019) <em>MATLAB Programming for Engineers</em>. 6th Edition. Cengage Learning: Boston, MA.</li>
-            <li>Kumar, R. and Singh, S. (2020) 'Solar PV power generation using MATLAB/Simulink', <em>International Journal of Renewable Energy Research</em>, 10(2), pp. 567-575.</li>
-            <li>MathWorks (2023) <em>Solar Power Generation with Simscape Electrical</em>, Available at: https://www.mathworks.com/help/physmod/sps/ (Accessed: 16 February 2026).</li>
-            <li>Green, M.A. (2016) 'Solar cell efficiency tables (version 48)', <em>Progress in Photovoltaics</em>, 24(7), pp. 905-913.</li>
+          <ul class="reference-list">          
+            <li>Yadav, A.K., Singh, M. and Meena, D.C., 2016, November. Modelling and simulation of wind turbine emulator using DC motor. In <em>2016 IEEE 7th Power India International Conference (PIICON)</em> (pp. 1-5). IEEE.</li>
+            <li>Monfared, M., Kojabadi, H.M. and Rastegar, H., 2008. Static and dynamic wind turbine simulator using a converter controlled dc motor. ,<em>Renewable Energy</em>, 33(5), pp.906-913.</li>
+            <li>Li, W., Xu, D., Zhang, W. and Ma, H., 2007, May. Research on wind turbine emulation based on DC motor. In <em>2007 2nd IEEE Conference on Industrial Electronics and Applications</em> (pp. 2589-2593). IEEE.</li>
+            <li>Hansen, M.O.L., 2015. <em>Aerodynamics of wind turbines</em>. Routledge.</li>
+            <li>Manwell, J.F., McGowan, J.G. and Rogers, A.L., 2010. <em>Wind energy explained: theory, design and application</em>. John Wiley & Sons.</li>
           </ul>
         </div>
       </section>

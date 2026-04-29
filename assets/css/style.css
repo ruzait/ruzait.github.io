@@ -565,7 +565,61 @@ main {
 
 
 /**
- * #testimonials 
+ * #languages
+ */
+
+.languages { margin-bottom: 35px; }
+
+.languages-title { margin-bottom: 20px; }
+
+.languages-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.language-item {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 80px;
+}
+
+.language-item::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-gradient-jet);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.language-name {
+  color: var(--white-2);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-500);
+  margin: 0;
+  text-align: center;
+}
+
+.language-level {
+  color: var(--vegas-gold);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  text-align: center;
+}
+
+
+/**
+ * #testimonials
  */
 
 .testimonials { margin-bottom: 30px; }
@@ -1513,6 +1567,14 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .service-content-box { text-align: left; }
 
+  /* languages */
+
+  .language-item {
+    padding: 20px 25px;
+  }
+
+  .language-name { font-size: var(--fs-4); }
+
   /* testimonials */
 
   .testimonials-title { }
@@ -1607,6 +1669,14 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .skills-item:not(:last-child) { margin-bottom: 25px; }
 
+  /* languages */
+  .language-item {
+    padding: 25px;
+    align-items: center;
+    min-height: 90px;
+  }
+
+  .language-name { font-size: var(--fs-4); }
 
 
   /**
@@ -1751,6 +1821,17 @@ textarea.form-input::-webkit-resizer { display: none; }
     width: max-content;
     margin-left: auto;
   }
+
+  /* languages */
+  .languages-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .language-item {
+    align-items: center;
+    min-height: 90px;
+  }
   
 }
 
@@ -1847,6 +1928,18 @@ textarea.form-input::-webkit-resizer { display: none; }
   .service-list {
     grid-template-columns: 1fr 1fr;
     gap: 20px 25px;
+  }
+
+  /* languages */
+
+  .languages-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 25px;
+  }
+
+  .language-item {
+    align-items: center;
+    min-height: 90px;
   }
 
   /* testimonials */
