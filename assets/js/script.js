@@ -61,19 +61,30 @@ const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
-select.addEventListener("click", function () { elementToggleFunc(this); });
+select.addEventListener("click", function (e) {
+  e.stopPropagation();
+  elementToggleFunc(select);
+});
+
+// close select dropdown when clicking outside
+document.addEventListener("click", function (e) {
+  if (!select.contains(e.target) && !e.target.closest('.select-list')) {
+    select.classList.remove("active");
+  }
+});
 
 // add event in all select items
 for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
-    
+  selectItems[i].addEventListener("click", function (e) {
+    e.stopPropagation();
+
     // Normalize text for matching (lowercase, trim spaces)
     let selectedValue = this.innerText.toLowerCase().replace(/\s+/g, " ").trim();
     let displayText = this.innerText;
-    
-    selectValueEl = document.querySelector("[data-selecct-value]");
+
+    let selectValueEl = document.querySelector("[data-selecct-value]");
     if (selectValueEl) selectValueEl.innerText = displayText;
-    
+
     elementToggleFunc(select);
     filterFunc(selectedValue);
 
