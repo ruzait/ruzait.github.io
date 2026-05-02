@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulation of Wind Turbine with DC Motor</title>
+  <title>Simulation of Hydro Electric Power Plant</title>
   
   <!-- Google Fonts (matches main portfolio) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -539,7 +539,7 @@
     <!-- Header Section -->
     <header class="lab-header">
       <ion-icon name="school-outline" class="lab-icon"></ion-icon>
-      <h1 class="lab-title">Simulation of Wind Turbine with DC Motor</h1>
+      <h1 class="lab-title">Hydro Electric Power Plant</h1>
       <span class="lab-category">Electrical Power Generation</span>
     </header>
 
@@ -551,7 +551,7 @@
           <h2 class="section-title">Date</h2>
         </div>
         <div class="section-content">
-          <p><strong>23/02/2026</strong> (Monday)</p>
+          <p><strong>02/03/2026</strong> (Monday)</p>
         </div>
       </section>
 
@@ -562,7 +562,7 @@
           <h2 class="section-title">Aim / Objectives</h2>
         </div>
         <div class="section-content">
-          <p>To design and simulate wind power generation using a DC motor in MATLAB Simulink.</p>
+          <p>To design and simulate a hydro electric power plant using MATLAB/Simulink.</p>
         </div>
       </section>
 
@@ -597,16 +597,6 @@
                 <td>Power</td>
                 <td>Watts (W)</td>
               </tr>
-              <tr>
-                <td>ω</td>
-                <td>Angular velocity</td>
-                <td>Radians per second (rad/s)</td>
-              </tr>
-              <tr>
-                <td>v</td>
-                <td>Wind speed</td>
-                <td>Meters per second (m/s)</td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -619,14 +609,10 @@
           <h2 class="section-title">Introduction</h2>
         </div>
         <div class="section-content">
-          <p>Wind energy is a renewable energy source that converts kinetic energy into electrical energy. In this experiment, a DC motor is used to simulate the operation of a wind turbine. MATLAB Simulink is used to model the system and analyze the output characteristics for different wind speeds.</p>
-          <div class="info-box">
-            <strong>Note:</strong> MATLAB/Simulink provides powerful tools for modeling and simulating renewable energy systems with high accuracy.
-          </div>
+          <p>Hydroelectric power generation is one of the most reliable renewable energy sources. It converts the potential energy of stored water into mechanical energy using turbines, which is then converted into electrical energy using a synchronous generator. In this experiment, a hydroelectric power plant is simulated using MATLAB Simulink to analyze the output power characteristics.</p>
         </div>
       </section>
 
-    
       <!-- APPARATUS -->
       <section class="lab-section">
         <div class="section-header">
@@ -647,7 +633,7 @@
           <h2 class="section-title">Theory</h2>
         </div>
         <div class="section-content">
-          <p>Wind turbines convert wind energy into mechanical energy through rotating blades, which is then converted into electrical energy using a generator. In simulation, a DC machine represents the generator. The output depends on parameters such as wind speed, pitch angle, and generator characteristics. Increasing wind speed increases turbine speed and output power.<p>
+          <p>In a hydroelectric power plant, water stored at a height flows through a turbine, converting potential energy into mechanical energy. This mechanical energy drives a synchronous generator to produce electrical power. The generated voltage and power depend on turbine speed, generator parameters, and load conditions. Bus selectors are used in simulation to extract specific signals such as speed and power for analysis.</p>
         </div>
       </section>
 
@@ -660,10 +646,10 @@
         <div class="section-content">
           <figure style="margin: 20px 0; text-align: center;">
             <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
-              <img src="imgs/wind1.png" alt="Solar Power Generation Circuit Diagram" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
+              <img src="imgs/hydro1.png" alt="Solar Power Generation Circuit Diagram" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
-              Figure 1: Simulation model of wind turbine with DC motor
+              Figure 1: Simulation model of hydro electric power plant
             </figcaption>
           </figure>
         </div>
@@ -677,16 +663,16 @@
         </div>
         <div class="section-content">
           <ol class="numbered-list">
-            <li> Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
-            <li> A new Simulink blank model was created in MATLAB.</li>
-            <li> The simulation circuit was constructed according to the given diagram.</li>
-            <li> In the wind turbine block, generator speed was set to 1.2 pu, pitch angle was set to 0°, and wind speed was set to 50 m/s.</li>
-            <li> In the DC machine block, the preset model of 5 HP, 240 V, 1750 RPM with a field voltage of 300 V was selected.</li>
-            <li> The load resistance was set to 50 Ω.</li>
-            <li> The gain value was set to 30/π.</li>
-            <li> The simulation was run and output waveforms were observed.</li>
-            <li> The wind speed was then changed to 75 m/s while keeping other parameters constant.</li>
-            <li> The simulation was run again and output waveforms were recorded for comparison.</li>
+            <li>A new Simulink blank model was created in MATLAB.</li>
+            <li>Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
+            <li>The simulation circuit was constructed according to the given diagram.</li>
+            <li>In the Bus Selector block, the following signals were selected: mechanical rotor speed wm (pu), output active power Peo (pu), mechanical rotor speed deviation dw (pu), and dq0 components stator voltage vq(pu).</li>
+            <li>Another Bus Selector block was used to extract the output active power Peo (pu) and connect it to the scope.</li>
+            <li>In the Synchronous Machine (pu Fundamental) block, the preset model of 50 Hz, 400 V, 8.1 kVA, 1500 RPM was selected.</li>
+            <li>In the Three-Phase Transformer block, winding-2 connection (abc terminals) was set to Delta (D1).</li>
+            <li>In the Three-Phase Series RLC Load blocks, the nominal frequency was set to 50 Hz, and both inductive reactive power QL and capacitive reactive power QC were set to zero.</li>
+            <li>In the Three-Phase Source block, the frequency was set to 50 Hz.</li>
+            <li>The simulation was run and the output active power waveform was observed using the scope.</li>
           </ol>
         </div>
       </section>
@@ -701,13 +687,12 @@
           <div class="section-content">
           <figure style="margin: 20px 0; text-align: center;">
             <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
-              <img src="imgs/wind2.png" alt="Simulated Output Voltage with Passive Filter" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
+              <img src="imgs/hydro2.png" alt="Simulated Output Voltage with Passive Filter" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
-              Figure 2: Simulated Output Voltage with Passive Filter
+              Figure 2: Simulated output active power waveform
             </figcaption>
           </figure>
-          <p>Output speed waveforms were obtained for wind speeds of 50 m/s and 75 m/s.</p>
         </div>
       </section>
 
@@ -718,7 +703,7 @@
           <h2 class="section-title">Results</h2>
         </div>
         <div class="section-content">
-          <p>The output speed waveforms for wind speeds of 50 m/s and 75 m/s were successfully obtained, showing an increase in speed with higher wind velocity.</p>
+          <p>The simulation of the hydro electric power plant was successfully carried out, and the output active power waveform was obtained.</p>
         </div>
       </section>
 
@@ -729,11 +714,10 @@
           <h2 class="section-title">Discussion</h2>
         </div>
         <div class="section-content">
-          <p>Wind power generation works by converting kinetic energy of wind into mechanical energy and then into electrical energy using a generator.</p>
-          <p>Pitch angle is the angle of turbine blades relative to wind direction and is used to control output power.</p>
-          <p>The output of wind turbines is generally AC, but in this simulation, a DC machine is used, so the output is DC.</p>
-          <p>The output power is affected by wind speed, pitch angle, air density, and turbine efficiency.</p>
-          <p>The gain block is used to scale the signal appropriately within the simulation.</p>
+          <p>A hydroelectric power plant works by converting the potential energy of water into mechanical energy using a turbine, which then drives a synchronous generator to produce electrical energy.</p>
+          <p>The output of a hydroelectric plant is affected by factors such as water head, flow rate, turbine efficiency, generator efficiency, and load conditions.</p>
+          <p>A synchronous generator operates by rotating a magnetic field within stator windings to induce an alternating voltage.</p>
+          <p>The powergui block is used to control simulation parameters and analysis type; discrete mode is used to improve simulation accuracy and stability in digital simulations.</p>
         </div>
       </section>
 
@@ -744,7 +728,7 @@
           <h2 class="section-title">Conclusion</h2>
         </div>
         <div class="section-content">
-          <p>The simulation of a wind turbine using a DC motor was successfully carried out. It was observed that increasing wind speed increases the output speed of the system. MATLAB Simulink is effective for analyzing wind energy systems.</p>
+          <p>The hydro electric power plant simulation was successfully performed using MATLAB Simulink. The output active power waveform was observed, confirming proper system operation.</p>
         </div>
       </section>
 
@@ -755,12 +739,13 @@
           <h2 class="section-title">References</h2>
         </div>
         <div class="section-content">
-          <ul class="reference-list">          
-            <li>Yadav, A.K., Singh, M. and Meena, D.C., 2016, November. Modelling and simulation of wind turbine emulator using DC motor. In <em>2016 IEEE 7th Power India International Conference (PIICON)</em> (pp. 1-5). IEEE.</li>
-            <li>Monfared, M., Kojabadi, H.M. and Rastegar, H., 2008. Static and dynamic wind turbine simulator using a converter controlled dc motor. ,<em>Renewable Energy</em>, 33(5), pp.906-913.</li>
-            <li>Li, W., Xu, D., Zhang, W. and Ma, H., 2007, May. Research on wind turbine emulation based on DC motor. In <em>2007 2nd IEEE Conference on Industrial Electronics and Applications</em> (pp. 2589-2593). IEEE.</li>
-            <li>Hansen, M.O.L., 2015. <em>Aerodynamics of wind turbines</em>. Routledge.</li>
-            <li>Manwell, J.F., McGowan, J.G. and Rogers, A.L., 2010. <em>Wind energy explained: theory, design and application</em>. John Wiley & Sons.</li>
+          <ul class="reference-list">
+            <li>MATLAB Simulink Documentation: https://www.mathworks.com/help/simulink/</li>
+            <li>Hydroelectric Power Plant Simulation Guide: https://www.mathworks.com/help/physmod/sps/powersys/ref/hydro.html</li>
+            <li>Renewable Energy Systems: https://www.sciencedirect.com/topics/engineering/hydroelectric-power-plant</li>
+            <li>Fang, H., Chen, L., Dlakavu, N. and Shen, Z., 2008. Basic modeling and simulation tool for analysis of hydraulic transients in hydroelectric power plants. IEEE Transactions on energy conversion, 23(3), pp.834-841.</li>
+            <li>Gao, W., Li, H., Sun, Y. and Zhang, J., 2015. Simulation of hydroelectric power plant based on MATLAB/Simulink. In 2015 International Conference on Power System Technology (POWERCON) (pp. 1-6). IEEE.</li>
+            <li>Hossain, M.J., Pota, H.R. and Kalantar, M., 2017. Dynamic modeling and simulation of hydroelectric power plant for transient stability analysis. In 2017 IEEE Power & Energy Society General Meeting (PESGM) (pp. 1-5). IEEE.</li>
           </ul>
         </div>
       </section>
@@ -773,7 +758,7 @@
       </a>
       <div class="lab-date">
         <ion-icon name="time-outline"></ion-icon>
-        <span>Lab completed: 23/02/2026</span>
+        <span>Lab completed: 02/03/2026</span>
       </div>
     </footer>
   </div>
