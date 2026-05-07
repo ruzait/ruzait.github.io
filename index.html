@@ -1240,20 +1240,19 @@
 
           event.preventDefault();
 
-          emailjs.sendForm(
-            "Portfolio",
-            "contactformtemp",
-            this
-          )
+          emailjs.sendForm("Portfolio", "contactformtemp", this)
             .then(function () {
-
+              return emailjs.send("Portfolio", "autoReplyTemplate", {
+                from_name: document.querySelector('[name="from_name"]').value,
+                email: document.querySelector('[name="email"]').value,
+                message: document.querySelector('[name="message"]').value,
+              });
+            })
+            .then(function () {
               alert("Message Sent Successfully!");
-
-            }, function (error) {
-
+            })
+            .catch(function () {
               alert("Failed to Send Message");
-              console.log(error);
-
             });
 
         });
