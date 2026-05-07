@@ -158,7 +158,7 @@
           "https://ruzait.github.io/apple-touch-icon.png"
         ],
         "sameAs": [
-          "https://www.linkedin.com/in/ruzaid-ahamed-92ba77310/",
+          "https://www.linkedin.com/in/ruzaid-ahamed/",
           "https://github.com/ruzait",
           "https://www.facebook.com/ruzait.ahamed.2025",
           "https://www.instagram.com/ruzait_ahmd"
@@ -315,7 +315,7 @@
           <ul class="social-list">
             <li class="social-item">
               <a
-                href="https://www.linkedin.com/in/ruzaid-ahamed-92ba77310/"
+                href="https://www.linkedin.com/in/ruzaid-ahamed/"
                 class="social-link"
               >
                 <ion-icon name="logo-linkedin"></ion-icon>
@@ -1127,13 +1127,13 @@
                 </div>
               </div>
 
-              <a href="https://www.linkedin.com/in/ruzaid-ahamed-92ba77310/" target="_blank" class="contact-detail-item">
+              <a href="https://www.linkedin.com/in/ruzaid-ahamed/" target="_blank" class="contact-detail-item">
                 <div class="contact-detail-icon">
                   <ion-icon name="logo-linkedin"></ion-icon>
                 </div>
                 <div>
                   <h4 class="h4 contact-detail-title">LinkedIn</h4>
-                  <p class="contact-detail-text">ruzaid-ahamed-92ba77310</p>
+                  <p class="contact-detail-text">linkedin.com/ruzaid-ahamed/</p>
                 </div>
               </a>
 
@@ -1172,7 +1172,7 @@
           <section class="contact-form">
             <h3 class="h3 form-title">Contact Form</h3>
 
-            <form action="#" class="form" data-form id="whatsapp-form">
+            <form action="#" class="form" data-form id="contactForm">
               <div class="input-wrapper">
                 <input
                   type="text"
@@ -1205,8 +1205,8 @@
               ></textarea>
 
               <button class="form-btn" type="submit" data-form-btn>
-                <ion-icon name="logo-whatsapp"></ion-icon>
-                <span>Send Message</span>
+                <ion-icon name="mail-outline"></ion-icon>
+                <span>Send Email</span>
               </button>
             </form>
           </section>
@@ -1230,5 +1230,33 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      emailjs.init("zbYZjjqa-vJoBsRGO");
+
+      document.getElementById("contactForm")
+        .addEventListener("submit", function (event) {
+
+          event.preventDefault();
+
+          emailjs.sendForm(
+            "Portfolio",
+            "contactformtemp",
+            this
+          )
+            .then(function () {
+
+              alert("Message Sent Successfully!");
+
+            }, function (error) {
+
+              alert("Failed to Send Message");
+              console.log(error);
+
+            });
+
+        });
+    </script>
   </body>
 </html>

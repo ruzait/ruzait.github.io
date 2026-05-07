@@ -210,24 +210,3 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-
-// WhatsApp form submission
-const whatsappForm = document.getElementById("whatsapp-form");
-
-if (whatsappForm) {
-  whatsappForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById("name-input").value;
-    const email = document.getElementById("email-input").value;
-    const message = document.getElementById("message-input").value;
-
-    // Your WhatsApp number (include country code, no + or spaces)
-    const phoneNumber = "94757864885";
-
-    const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
-
-    window.open(whatsappUrl, "_blank");
-  });
-}
