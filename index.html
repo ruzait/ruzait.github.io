@@ -741,6 +741,18 @@
 
               <li class="timeline-item">
                 <h4 class="h4 timeline-item-title">
+                  Siemens PLC and TIA Portal Essentials
+                </h4>
+
+                <span>May 28, 2026</span>
+
+                <p class="timeline-text">
+                  Successfully completed the Siemens PLC and TIA Portal Essentials course offered by Packt through Coursera.
+                </p>
+              </li>
+
+              <li class="timeline-item">
+                <h4 class="h4 timeline-item-title">
                   Advanced Level (Technology Stream)
                 </h4>
 
@@ -1231,14 +1243,41 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
 
+    <div class="toast" id="toast">
+      <div class="toast-icon" id="toastIcon">
+        <ion-icon name="checkmark-circle"></ion-icon>
+      </div>
+      <span class="toast-message" id="toastMessage"></span>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
       emailjs.init("zbYZjjqa-vJoBsRGO");
+
+      function showToast(message, isSuccess) {
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+        toastMessage.textContent = message;
+        toastIcon.innerHTML = isSuccess
+          ? '<ion-icon name="checkmark-circle"></ion-icon>'
+          : '<ion-icon name="close-circle"></ion-icon>';
+        toast.className = "toast" + (isSuccess ? " success" : " error");
+        toast.classList.add("visible");
+        setTimeout(function () { toast.classList.remove("visible"); }, 4000);
+      }
 
       document.getElementById("contactForm")
         .addEventListener("submit", function (event) {
 
           event.preventDefault();
+
+          const btn = document.querySelector("[data-form-btn]");
+          const btnText = btn.querySelector("span");
+          const originalText = btnText.textContent;
+
+          btn.setAttribute("disabled", "");
+          btnText.textContent = "Sending...";
 
           emailjs.sendForm("Portfolio", "contactformtemp", this)
             .then(function () {
@@ -1249,10 +1288,15 @@
               });
             })
             .then(function () {
-              alert("Message Sent Successfully!");
+              showToast("Message Sent Successfully!", true);
+              document.getElementById("contactForm").reset();
+              btn.removeAttribute("disabled");
+              btnText.textContent = originalText;
             })
             .catch(function () {
-              alert("Failed to Send Message");
+              showToast("Failed to Send Message", false);
+              btn.removeAttribute("disabled");
+              btnText.textContent = originalText;
             });
 
         });
