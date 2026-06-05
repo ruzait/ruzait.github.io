@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /lab-work/Templet.html
+Disallow: /assets/
 
 Sitemap: https://ruzait.github.io/sitemap.xml
