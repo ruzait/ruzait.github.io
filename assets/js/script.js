@@ -3,7 +3,7 @@
 
 
 // element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+const elementToggleFunc = function (elem) { elem.classList.toggle("active"); };
 
 
 
@@ -13,7 +13,31 @@ const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
 if (sidebarBtn) {
-  sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+  sidebarBtn.addEventListener("click", function () {
+    elementToggleFunc(sidebar);
+    const isExpanded = sidebar.classList.contains("active");
+    sidebarBtn.setAttribute("aria-expanded", isExpanded);
+    sidebarBtn.querySelector("span").textContent = isExpanded ? "Hide Contacts" : "Show Contacts";
+  });
+}
+
+
+
+// scroll to top
+const scrollToTopBtn = document.getElementById("scrollToTop");
+
+if (scrollToTopBtn) {
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 300) {
+      scrollToTopBtn.classList.add("visible");
+    } else {
+      scrollToTopBtn.classList.remove("visible");
+    }
+  });
+
+  scrollToTopBtn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
 
 
@@ -195,7 +219,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
       if (navText === pageText) {
         pages[j].classList.add("active");
         clickedBtn.classList.add("active");
-        window.scrollTo(0, 0);
+        clickedBtn.setAttribute("aria-current", "page");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         pages[j].classList.remove("active");
       }
@@ -204,6 +229,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
     for (let k = 0; k < navigationLinks.length; k++) {
       if (navigationLinks[k] !== clickedBtn) {
         navigationLinks[k].classList.remove("active");
+        navigationLinks[k].removeAttribute("aria-current");
       }
     }
 

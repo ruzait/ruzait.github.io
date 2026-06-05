@@ -48,8 +48,20 @@
     <meta name="distribution" content="global" />
     <meta name="rating" content="general" />
 
+    <!-- Theme Color & PWA -->
+    <meta name="theme-color" content="#1e1e1e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <!-- Referrer Policy -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ruzait.github.io/" />
+    <link rel="alternate" href="https://ruzait.github.io/" hreflang="en" />
+    <link rel="alternate" href="https://ruzait.github.io/" hreflang="x-default" />
 
     <!-- Favicon and App Icons -->
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
@@ -127,6 +139,9 @@
     <link rel="preconnect" href="https://unpkg.com" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="preload" href="./assets/images/ruzait.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="./assets/css/style.css" as="style" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -153,7 +168,7 @@
         "description": "Electro Technologist and Web Developer specializing in electrical systems, IoT, embedded systems, industrial automation, and modern web development.",
         "url": "https://ruzait.github.io/",
         "image": [
-          "https://ruzait.github.io/ruzait.png",
+          "https://ruzait.github.io/assets/images/ruzait.png",
           "https://ruzait.github.io/web-app-manifest-512x512.png",
           "https://ruzait.github.io/apple-touch-icon.png"
         ],
@@ -182,11 +197,18 @@
           "MongoDB",
           "Git & GitHub"
         ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Zips Campus and Atwax",
-          "jobTitle": "Graphic Designer"
-        },
+        "worksFor": [
+          {
+            "@type": "Organization",
+            "name": "Zips Campus",
+            "jobTitle": "Graphic Designer"
+          },
+          {
+            "@type": "Organization",
+            "name": "Atwax",
+            "jobTitle": "Graphic Designer"
+          }
+        ],
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Addalaichenai",
@@ -198,7 +220,7 @@
       }
     </script>
 
-    <!-- Website Schema -->
+    <!-- Website Schema + Breadcrumb -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -217,25 +239,44 @@
         }
       }
     </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ruzait.github.io/"
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!--
     - #MAIN
   -->
 
-    <main>
+    <main id="main-content" role="main">
       <!--
       - #SIDEBAR
     -->
 
-      <aside class="sidebar" data-sidebar>
+      <aside class="sidebar" data-sidebar role="complementary" aria-label="Profile information">
         <div class="sidebar-info">
           <figure class="avatar-box">
             <img
               src="./assets/images/ruzait.png"
               alt="Ruzaid Ahamed"
               width="80"
+              height="80"
+              fetchpriority="high"
             />
           </figure>
 
@@ -245,7 +286,7 @@
             <p class="title">Electro Technologist | Web Developer</p>
           </div>
 
-          <button class="info_more-btn" data-sidebar-btn>
+          <button class="info_more-btn" data-sidebar-btn aria-label="Show contacts" aria-expanded="false">
             <span>Show Contacts</span>
 
             <ion-icon name="chevron-down"></ion-icon>
@@ -264,9 +305,10 @@
               <div class="contact-info">
                 <p class="contact-title">Email</p>
 
-                <a
+                  <a
                   href="mailto:ruzaitahamedzainudeen@gmail.com"
                   class="contact-link"
+                  aria-label="Email ruzaitahamedzainudeen@gmail.com"
                   >ruzaitahamedzainudeen@gmail.com</a
                 >
               </div>
@@ -317,13 +359,20 @@
               <a
                 href="https://www.linkedin.com/in/ruzaid-ahamed/"
                 class="social-link"
+                aria-label="LinkedIn profile"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <ion-icon name="logo-linkedin"></ion-icon>
               </a>
             </li>
 
             <li class="social-item">
-              <a href="https://github.com/ruzait" class="social-link">
+              <a href="https://github.com/ruzait" class="social-link"
+                aria-label="GitHub profile"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <ion-icon name="logo-github"></ion-icon>
               </a>
             </li>
@@ -332,6 +381,9 @@
               <a
                 href="https://www.facebook.com/ruzait.ahamed.2025?mibextid=ZbWKwL"
                 class="social-link"
+                aria-label="Facebook profile"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <ion-icon name="logo-facebook"></ion-icon>
               </a>
@@ -341,6 +393,9 @@
               <a
                 href="https://www.instagram.com/ruzait_ahmd?igsh=aXk2bGluaGxhbjJu"
                 class="social-link"
+                aria-label="Instagram profile"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <ion-icon name="logo-instagram"></ion-icon>
               </a>
@@ -358,10 +413,10 @@
         - #NAVBAR
       -->
 
-        <nav class="navbar">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
           <ul class="navbar-list">
             <li class="navbar-item">
-              <button class="navbar-link active" data-nav-link>About</button>
+              <button class="navbar-link active" data-nav-link aria-current="page">About</button>
             </li>
 
             <li class="navbar-item">
@@ -569,66 +624,72 @@
                 <img
                   src="./assets/images/tools/vscode.png"
                   alt="Visual Studio Code"
+                  width="60"
+                  height="60"
+                  loading="lazy"
                 />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/Autodesk.png" alt="AutoCad" />
+                <img src="./assets/images/tools/Autodesk.png" alt="AutoCad" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/python.png" alt="Python" />
+                <img src="./assets/images/tools/python.png" alt="Python" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/mongo-Db.png" alt="MongoDB" />
+                <img src="./assets/images/tools/mongo-Db.png" alt="MongoDB" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/matlab.png" alt="MATLAB" />
+                <img src="./assets/images/tools/matlab.png" alt="MATLAB" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/ardino.png" alt="Arduino" />
+                <img src="./assets/images/tools/ardino.png" alt="Arduino" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
                 <img
                   src="./assets/images/tools/raspberry pi.png"
                   alt="Raspberry Pi"
+                  width="60"
+                  height="60"
+                  loading="lazy"
                 />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/github.png" alt="GitHub" />
+                <img src="./assets/images/tools/github.png" alt="GitHub" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/html5.png" alt="HTML5" />
+                <img src="./assets/images/tools/html5.png" alt="HTML5" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/css3.png" alt="CSS3" />
+                <img src="./assets/images/tools/css3.png" alt="CSS3" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/nodejs.png" alt="JavaScript" />
+                <img src="./assets/images/tools/nodejs.png" alt="JavaScript" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/ladder.png" alt="Ladder-plc" />
+                <img src="./assets/images/tools/ladder.png" alt="Ladder Logic PLC" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/react.png" alt="React" />
+                <img src="./assets/images/tools/react.png" alt="React" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/postman.png" alt="Postman" />
+                <img src="./assets/images/tools/postman.png" alt="Postman" width="60" height="60" loading="lazy" />
               </li>
 
               <li class="clients-item">
-                <img src="./assets/images/tools/canva.png" alt="Canva" />
+                <img src="./assets/images/tools/canva.png" alt="Canva" width="60" height="60" loading="lazy" />
               </li>
             </ul>
           </section>
@@ -890,7 +951,7 @@
                 data-filter-item
                 data-category="web development"
               >
-                <a href="https://taasabusinessgroup.com/" target="_blank">
+                <a href="https://taasabusinessgroup.com/" target="_blank" rel="noopener noreferrer">
                   <figure class="project-img">
                     <div class="project-item-icon-box">
                       <ion-icon name="eye-outline"></ion-icon>
@@ -898,8 +959,10 @@
 
                     <img
                       src="./assets/images/taasabusinessgroup.png"
-                      alt="finance"
+                      alt="TaaSa Business Group website preview"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -914,7 +977,7 @@
                 data-filter-item
                 data-category="web development"
               >
-                <a href="https://al-zakki.netlify.app/" target="_blank">
+                <a href="https://al-zakki.netlify.app/" target="_blank" rel="noopener noreferrer">
                   <figure class="project-img">
                     <div class="project-item-icon-box">
                       <ion-icon name="eye-outline"></ion-icon>
@@ -922,8 +985,10 @@
 
                     <img
                       src="./assets/images/al-zakki.png"
-                      alt="orizon"
+                      alt="AL-ZAKKI Banquet Hall website preview"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -938,7 +1003,7 @@
                 data-filter-item
                 data-category="Electronic Projects"
               >
-                <a href="https://wokwi.com/projects/462894443750077441" target="_blank">
+                <a href="https://wokwi.com/projects/462894443750077441" target="_blank" rel="noopener noreferrer">
                   <figure class="project-img">
                     <div class="project-item-icon-box">
                       <ion-icon name="eye-outline"></ion-icon>
@@ -946,8 +1011,10 @@
 
                     <img
                       src="./lab-work/imgs/Ardino1.png"
-                      alt="orizon"
+                      alt="Sequential LED Blinking System circuit diagram"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -962,7 +1029,7 @@
                 data-filter-item
                 data-category="web development"
               >
-                <a href="https://browzclothing.netlify.app/" target="_blank">
+                <a href="https://browzclothing.netlify.app/" target="_blank" rel="noopener noreferrer">
                   <figure class="project-img">
                     <div class="project-item-icon-box">
                       <ion-icon name="eye-outline"></ion-icon>
@@ -970,8 +1037,10 @@
 
                     <img
                       src="./assets/images/browzclothing.png"
-                      alt="fundo"
+                      alt="Browz Clothing website preview"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -1002,8 +1071,10 @@
                   <figure class="blog-banner-box">
                     <img
                       src="./lab-work/imgs/hydro1.png"
-                      alt="Simulation of Wind Turbine"
+                      alt="Hydro Power Plant MATLAB Simulink simulation"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -1030,8 +1101,10 @@
                   <figure class="blog-banner-box">
                     <img
                       src="./lab-work/imgs/wind1.png"
-                      alt="Simulation of Wind Turbine"
+                      alt="Wind Turbine MATLAB Simulink simulation"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -1058,8 +1131,10 @@
                   <figure class="blog-banner-box">
                     <img
                       src="./lab-work/imgs/soler1.png"
-                      alt="Solar Power Generation for Home Application"
+                      alt="Solar Power Generation MATLAB simulation"
                       loading="lazy"
+                      width="400"
+                      height="240"
                     />
                   </figure>
 
@@ -1099,7 +1174,7 @@
             <h3 class="h3 contact-details-title">Get in Touch</h3>
 
             <div class="contact-details-grid">
-              <a href="mailto:ruzaitahamedzainudeen@gmail.com" class="contact-detail-item">
+              <a href="mailto:ruzaitahamedzainudeen@gmail.com" class="contact-detail-item" aria-label="Send email">
                 <div class="contact-detail-icon">
                   <ion-icon name="mail-outline"></ion-icon>
                 </div>
@@ -1109,7 +1184,7 @@
                 </div>
               </a>
 
-              <a href="tel:+94757864885" class="contact-detail-item">
+              <a href="tel:+94757864885" class="contact-detail-item" aria-label="Call +94 757 864 885">
                 <div class="contact-detail-icon">
                   <ion-icon name="phone-portrait-outline"></ion-icon>
                 </div>
@@ -1119,7 +1194,7 @@
                 </div>
               </a>
 
-              <a href="https://wa.me/94757864885" target="_blank" class="contact-detail-item">
+              <a href="https://wa.me/94757864885" target="_blank" rel="noopener noreferrer" class="contact-detail-item" aria-label="Open WhatsApp">
                 <div class="contact-detail-icon">
                   <ion-icon name="logo-whatsapp"></ion-icon>
                 </div>
@@ -1139,7 +1214,7 @@
                 </div>
               </div>
 
-              <a href="https://www.linkedin.com/in/ruzaid-ahamed/" target="_blank" class="contact-detail-item">
+              <a href="https://www.linkedin.com/in/ruzaid-ahamed/" target="_blank" rel="noopener noreferrer" class="contact-detail-item" aria-label="LinkedIn profile">
                 <div class="contact-detail-icon">
                   <ion-icon name="logo-linkedin"></ion-icon>
                 </div>
@@ -1149,7 +1224,7 @@
                 </div>
               </a>
 
-              <a href="https://github.com/ruzait" target="_blank" class="contact-detail-item">
+              <a href="https://github.com/ruzait" target="_blank" rel="noopener noreferrer" class="contact-detail-item" aria-label="GitHub profile">
                 <div class="contact-detail-icon">
                   <ion-icon name="logo-github"></ion-icon>
                 </div>
@@ -1159,7 +1234,7 @@
                 </div>
               </a>
 
-              <a href="https://www.facebook.com/ruzait.ahamed.2025?mibextid=ZbWKwL" target="_blank" class="contact-detail-item">
+              <a href="https://www.facebook.com/ruzait.ahamed.2025?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="contact-detail-item" aria-label="Facebook profile">
                 <div class="contact-detail-icon">
                   <ion-icon name="logo-facebook"></ion-icon>
                 </div>
@@ -1169,7 +1244,7 @@
                 </div>
               </a>
 
-              <a href="https://www.instagram.com/ruzait_ahmd?igsh=aXk2bGluaGxhbjJu" target="_blank" class="contact-detail-item">
+              <a href="https://www.instagram.com/ruzait_ahmd?igsh=aXk2bGluaGxhbjJu" target="_blank" rel="noopener noreferrer" class="contact-detail-item" aria-label="Instagram profile">
                 <div class="contact-detail-icon">
                   <ion-icon name="logo-instagram"></ion-icon>
                 </div>
@@ -1184,8 +1259,9 @@
           <section class="contact-form">
             <h3 class="h3 form-title">Contact Form</h3>
 
-            <form action="#" class="form" data-form id="contactForm">
+            <form action="#" class="form" data-form id="contactForm" aria-label="Contact form">
               <div class="input-wrapper">
+                <label for="name-input" class="sr-only">Full name</label>
                 <input
                   type="text"
                   name="from_name"
@@ -1194,8 +1270,10 @@
                   required
                   data-form-input
                   id="name-input"
+                  autocomplete="name"
                 />
 
+                <label for="email-input" class="sr-only">Email address</label>
                 <input
                   type="email"
                   name="email"
@@ -1204,9 +1282,11 @@
                   required
                   data-form-input
                   id="email-input"
+                  autocomplete="email"
                 />
               </div>
 
+              <label for="message-input" class="sr-only">Your Message</label>
               <textarea
                 name="message"
                 class="form-input"
@@ -1216,8 +1296,8 @@
                 id="message-input"
               ></textarea>
 
-              <button class="form-btn" type="submit" data-form-btn>
-                <ion-icon name="mail-outline"></ion-icon>
+              <button class="form-btn" type="submit" data-form-btn aria-label="Send email">
+                <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
                 <span>Send Email</span>
               </button>
             </form>
@@ -1229,7 +1309,7 @@
     <!--
     - custom js link
   -->
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js" defer></script>
 
     <!--
     - ionicon link
@@ -1243,12 +1323,16 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
 
-    <div class="toast" id="toast">
+    <div class="toast" id="toast" role="alert" aria-live="polite">
       <div class="toast-icon" id="toastIcon">
         <ion-icon name="checkmark-circle"></ion-icon>
       </div>
       <span class="toast-message" id="toastMessage"></span>
     </div>
+
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </button>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>

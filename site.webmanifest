@@ -5,7 +5,7 @@
   "start_url": "https://ruzait.github.io/",
   "display": "standalone",
   "background_color": "#1e1e1e",
-  "theme_color": "#ff3c00",
+  "theme_color": "#1e1e1e",
   "orientation": "any",
   "icons": [
     {
@@ -27,7 +27,7 @@
       "purpose": "any"
     },
     {
-      "src": "./logo.svg",
+      "src": "./assets/images/logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
