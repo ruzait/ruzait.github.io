@@ -34,12 +34,52 @@
  */
 
 window.projectsData = [
+   {
+    title: "PLC-Based Three-Phase Industrial Motor Controller",
+    category: "Electrical",
+    filters: ["Electrical", "Industrial Automation"],
+    href: "https://www.linkedin.com/in/ruzaid-ahamed/",
+    image: "./assets/images/projects/PLC_Motor_Control_ Star–Delta_Selection.png",
+    alt: "PLC-Based Three-Phase Industrial Motor Controller",
+    width: 800,
+    height: 500
+  },
+  {
+    title: "PLC-Based START and STOP Lamp Control System",
+    category: "Electrical",
+    filters: ["Electrical", "Industrial Automation"],
+    href: "https://www.linkedin.com/in/ruzaid-ahamed/",
+    image: "./assets/images/projects/PLC_START_STOP_Lamp_Control Journey.png",
+    alt: "PLC-Based START and STOP Lamp Control System",
+    width: 800,
+    height: 500
+  },
+  {
+    title: "Single Motor Star (Y) and Delta (Δ) Connections",
+    category: "Electrical",
+    filters: ["Electrical"],
+    href: "https://www.linkedin.com/in/ruzaid-ahamed/",
+    image: "./assets/images/projects/Star_Delta_Motor_Connections.png",
+    alt: "Single Motor Star (Y) and Delta (Δ) Connections",
+    width: 800,
+    height: 500
+  },
+  {
+    title: "Three-Phase Forward and Reverse Motor Control System",
+    category: "Electrical",
+    filters: ["Electrical"],
+    href: "https://www.linkedin.com/in/ruzaid-ahamed/",
+    image: "./assets/images/projects/Three-Phase_Motor_Control_Tutorial.png",
+    alt: "Three-Phase Forward and Reverse Motor Control System",
+    width: 800,
+    height: 500
+  },
   {
     title: "Three-Phase Electrical Wiring and Motor Connections",
     category: "Electrical",
     filters: ["Electrical"],
     href: "https://www.linkedin.com/in/ruzaid-ahamed/",
-    image: "./assets/images/projects/Three-Phase Motor_Wiring-card.jpg",
+    image: "./assets/images/projects/Three-Phase Motor_Wiring.png",
     alt: "Three-Phase Electrical Wiring and Motor Connections",
     width: 800,
     height: 500
@@ -49,7 +89,7 @@ window.projectsData = [
     category: "Electrical",
     filters: ["Electrical"],
     href: "https://www.linkedin.com/in/ruzaid-ahamed/",
-    image: "./assets/images/projects/Residential_Wiring_Journey-card.jpg",
+    image: "./assets/images/projects/Residential_Wiring_Journey.png",
     alt: "Single-phase residential electrical wiring diagram",
     width: 800,
     height: 500
@@ -59,7 +99,7 @@ window.projectsData = [
     category: "Electrical",
     filters: ["Electrical"],
     href: "https://www.linkedin.com/in/ruzaid-ahamed/",
-    image: "./assets/images/projects/Electrical_Schematic_Drawing-card.jpg",
+    image: "./assets/images/projects/Electrical_Schematic_Drawing.png",
     alt: "Electrical Schematic Drawing & Basic Control Circuits",
     badge: { icon: "shield-checkmark-outline", label: "Electrical Schematic Drawing" },
     width: 800,
@@ -70,7 +110,7 @@ window.projectsData = [
     category: "Industrial Automation",
     filters: ["Industrial Automation"],
     href: "https://youtu.be/VEgAQJ69JYg",
-    image: "./lab-work/imgs/boxSorting-card.jpg",
+    image: "./assets/images/projects/boxSorting.png",
     alt: "Box Sorting Ladder (LAD) program in OpenPLC",
     badge: { icon: "checkmark-circle-outline", label: "Completed" },
     width: 800,
@@ -81,7 +121,7 @@ window.projectsData = [
     category: "Web Development",
     filters: ["Web Development"],
     href: "https://taasabusinessgroup.com/",
-    image: "./assets/images/taasabusinessgroup-card.jpg",
+    image: "./assets/images/projects/taasabusinessgroup.png",
     alt: "TaaSa Business Group website preview",
     width: 800,
     height: 500
@@ -91,7 +131,7 @@ window.projectsData = [
     category: "Web Development",
     filters: ["Web Development"],
     href: "https://al-zakki.netlify.app/",
-    image: "./assets/images/al-zakki-card.jpg",
+    image: "./assets/images/projects/al-zakki.png",
     alt: "AL-ZAKKI Banquet Hall website preview",
     width: 800,
     height: 500
@@ -101,7 +141,7 @@ window.projectsData = [
     category: "Web Development",
     filters: ["Web Development"],
     href: "https://browzclothing.netlify.app/",
-    image: "./assets/images/browzclothing-card.jpg",
+    image: "./assets/images/projects/browzclothing.png",
     alt: "Browz Clothing website preview",
     width: 800,
     height: 500
@@ -111,7 +151,7 @@ window.projectsData = [
     category: "IoT & Embedded",
     filters: ["IoT & Embedded"],
     href: "https://wokwi.com/projects/467586224469959681",
-    image: "./lab-work/imgs/Counter-card.jpg",
+    image: "./assets/images/projects/LCD_Counter.png",
     alt: "Arduino LCD counter circuit simulation",
     width: 800,
     height: 500
@@ -121,7 +161,7 @@ window.projectsData = [
     category: "IoT & Embedded",
     filters: ["IoT & Embedded"],
     href: "https://wokwi.com/projects/467501123454926849",
-    image: "./lab-work/imgs/Ardino1-card.jpg",
+    image: "./assets/images/projects/LED_Sequential.png",
     alt: "Sequential LED blinking system circuit diagram",
     width: 800,
     height: 500
