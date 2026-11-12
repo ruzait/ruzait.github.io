@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Ruzaid Ahamed — CV | Electro Technology Undergraduate & Web Developer</title>
+    <meta
+      name="description"
+      content="Curriculum Vitae of Ruzaid Ahamed — Electro Technology undergraduate (University of Jaffna), web developer, and IoT & industrial automation enthusiast. Aspiring Electrical Design and Industrial Automation Engineer."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ruzait.github.io/cv.html" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png" />
+    <meta name="theme-color" content="#1e1e1e" />
+
+    <meta property="og:type" content="profile" />
+    <meta
+      property="og:title"
+      content="Ruzaid Ahamed — CV | Electro Technology Undergraduate & Web Developer"
+    />
+    <meta
+      property="og:description"
+      content="Curriculum Vitae — Electro Technology undergraduate, web developer, IoT & industrial automation enthusiast."
+    />
+    <meta property="og:url" content="https://ruzait.github.io/cv.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <style>
+      :root {
+        --bg: #121212;                        /* smoky black — original background */
+        --ink: #ffffff;                       /* white-1 */
+        --ink-2: #d6d6d6;                     /* light gray — original body text */
+        --ink-3: rgba(214, 214, 214, 0.7);     /* light-gray-70 */
+        --accent: #ffdb70;                    /* orange-yellow-crayola — original accent */
+        --accent-strong: #ffbb5c;             /* hsl(35,100%,68%) — original gradient tone */
+        --accent-deep: #ceb15a;               /* vegas gold — original secondary accent */
+        --accent-soft: hsla(45, 100%, 72%, 0.12);
+        --accent-border: hsla(45, 100%, 72%, 0.36);
+        --border: #2b2b2b;                     /* onyx */
+        --border-strong: #383838;             /* jet — original border color */
+        --surface: #1f1f1f;                   /* eerie black 2 — original card surface */
+        --ff-body: 'Poppins', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        --ff-display: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+        --ff-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        overflow-x: clip;
+      }
+
+      body {
+        font-family: var(--ff-body);
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse 90% 50% at 50% -10%, rgba(255, 219, 112, 0.05), transparent 70%),
+          var(--bg);
+        line-height: 1.6;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: clip;
+        padding-left: env(safe-area-inset-left, 0px);
+        padding-right: env(safe-area-inset-right, 0px);
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .cv-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        padding-top: calc(12px + env(safe-area-inset-top, 0px));
+        background: rgba(18, 18, 18, 0.86);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .cv-toolbar a,
+      .cv-toolbar button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 16px;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: inherit;
+        line-height: 1.6;
+        cursor: pointer;
+        transition: 0.2s ease;
+        border: 1px solid transparent;
+      }
+
+      .cv-toolbar ion-icon { font-size: 15px; }
+
+      .btn-print {
+        background: linear-gradient(150deg, var(--accent-strong), var(--accent-deep));
+        color: #141414;
+        border-color: transparent;
+        box-shadow: 0 8px 30px rgba(255, 219, 112, 0.16);
+      }
+
+      .btn-print:hover { filter: brightness(1.06); }
+
+      .btn-back {
+        background: var(--surface);
+        color: var(--ink-2);
+        border-color: var(--border-strong);
+      }
+
+      .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+
+      /* page — one plain document column, no boxes around sections */
+
+      .cv-page {
+        max-width: 820px;
+        margin: 24px auto calc(48px + env(safe-area-inset-bottom, 0px));
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      /* header + sections sit directly on the page with no card chrome */
+
+      .cv-header,
+      .cv-section {
+        background: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .cv-header {
+        padding: 0;
+        text-align: center;
+      }
+
+      /* header */
+
+      .cv-name {
+        font-family: var(--ff-display);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+
+      .cv-role {
+        margin-top: 6px;
+        color: var(--accent-deep);
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      .cv-objective {
+        margin-top: 10px;
+        color: var(--ink-2);
+        font-size: 13px;
+      }
+
+      /* contact */
+
+      .cv-contact {
+        margin-top: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 22px;
+        color: var(--ink-3);
+        font-size: 12.5px;
+      }
+
+      .cv-contact a,
+      .cv-contact span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .cv-contact ion-icon {
+        font-size: 13px;
+        color: var(--accent);
+        flex: none;
+      }
+
+      .cv-contact a:hover { color: var(--accent-deep); }
+
+      /* sections */
+
+      .cv-section { padding: 0; }
+
+      .cv-section-title {
+        font-family: var(--ff-display);
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ink);
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 16px;
+      }
+
+      /* experience — a two-column "year rail": dates hold their own
+         left column while roles read down the right. Different rhythm
+         from the dotted education timeline and the portfolio rows. */
+
+      .entry {
+        display: grid;
+        grid-template-columns: 118px minmax(0, 1fr);
+        gap: 2px 20px;
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .entry:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+      }
+
+      .entry-time {
+        grid-column: 1;
+        padding-top: 2px;
+        color: var(--accent-deep);
+        font-family: var(--ff-mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+
+      .entry-body {
+        grid-column: 2;
+        min-width: 0;
+      }
+
+      .entry-title {
+        display: block;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 13.5px;
+        transition: color 0.2s ease;
+      }
+
+      .entry:hover .entry-title { color: var(--accent); }
+
+      .entry-place { color: var(--accent-deep); font-weight: 500; font-size: 13px; }
+
+      .entry .entry-text {
+        color: var(--ink-3);
+        font-size: 12.5px;
+        margin-top: 3px;
+      }
+
+      .entry-text {
+        color: var(--ink-2);
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      /* inline links */
+      .entry-text a { color: var(--accent); }
+      .entry-text a:hover { color: var(--accent-strong); }
+
+      /* education timeline — a gold-dotted spine down the left,
+         mirroring the portfolio's resume timeline */
+
+      .timeline {
+        padding-left: 22px;
+        border-left: 1px solid var(--border-strong);
+      }
+
+      .timeline-item { position: relative; }
+
+      .timeline-item:not(:last-child) { margin-bottom: 22px; }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -27px;
+        top: 5px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px var(--bg);
+      }
+
+      .timeline-time {
+        display: block;
+        color: var(--accent-deep);
+        font-family: var(--ff-mono);
+        font-size: 12px;
+        margin-bottom: 3px;
+      }
+
+      .timeline-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--ink);
+      }
+
+      .timeline-place {
+        margin-top: 3px;
+        color: var(--accent-deep);
+        font-weight: 500;
+        font-size: 13px;
+      }
+
+      /* certifications — a light icon list instead of entry blocks */
+
+      .cert-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .cert-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .cert-item ion-icon {
+        font-size: 16px;
+        color: var(--accent);
+        flex: none;
+        margin-top: 2px;
+      }
+
+      .cert-name {
+        display: block;
+        color: var(--ink);
+        font-weight: 500;
+        font-size: 13.5px;
+        line-height: 1.4;
+      }
+
+      .cert-meta {
+        display: block;
+        margin-top: 2px;
+        color: var(--ink-3);
+        font-size: 12px;
+      }
+
+      /* skills — compact tag pills (distinct from the portfolio cards) */
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 36px;
+      }
+
+      .skill-group {
+        padding: 0;
+        border: none;
+        background: none;
+        break-inside: avoid;
+      }
+
+      .skill-group h3 {
+        position: relative;
+        margin-bottom: 6px;
+        padding-left: 13px;
+        color: var(--ink-3);
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .skill-group h3::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        margin-top: -2.5px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .cv-skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .cv-skill-tags li {
+        display: inline-block;
+        padding: 3px 10px;
+        border: 1px solid var(--accent-border);
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--ink-2);
+        font-size: 11.5px;
+        line-height: 1.4;
+        white-space: nowrap;
+      }
+
+      .skill-group p {
+        color: var(--ink-2);
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      /* languages — a small proficiency meter under each name, so the
+         section reads differently from the skill pills above */
+
+      .languages-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px 28px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .language-card {
+        padding: 0;
+        border: none;
+        background: none;
+      }
+
+      .language-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .language-name {
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .language-level {
+        color: var(--ink-3);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .language-meter {
+        display: block;
+        height: 3px;
+        margin-top: 6px;
+        border-radius: 999px;
+        background: var(--border);
+        overflow: hidden;
+      }
+
+      .language-meter::after {
+        content: "";
+        display: block;
+        width: var(--level, 0%);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--accent-deep), var(--accent));
+      }
+
+      .language-native { --level: 100%; }
+      .language-intermediate { --level: 66%; }
+      .language-basic { --level: 33%; }
+
+      /* footer */
+
+      .cv-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: var(--ink-3);
+        font-size: 11.5px;
+        font-family: var(--ff-mono);
+      }
+
+      .cv-footer a {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .cv-footer a:hover { color: var(--accent); }
+
+      /* content reveal — sections fade/slide in as they enter the viewport,
+         with their entries cascading one after another */
+
+      @media (prefers-reduced-motion: no-preference) {
+        .js .reveal {
+          opacity: 0;
+          transform: translateY(18px);
+          transition:
+            opacity 0.55s ease,
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .js .reveal.is-visible {
+          opacity: 1;
+          transform: none;
+        }
+
+        .js .reveal-item {
+          opacity: 0;
+          transform: translateY(10px);
+          transition:
+            opacity 0.5s ease var(--reveal-delay, 0s),
+            transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+        }
+
+        .js .reveal.is-visible .reveal-item {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media print {
+        .reveal,
+        .reveal-item {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+
+      /* responsive */
+
+      @media (max-width: 640px) {
+        .cv-page {
+          margin: 12px;
+          margin-bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+          padding: 0 20px;
+          gap: 26px;
+        }
+
+        .cv-name { font-size: 24px; }
+
+        /* flush the intro copy and contact rows to both edges once the
+           header is narrow enough to wrap */
+        .cv-objective {
+          text-align: justify;
+          text-justify: inter-word;
+        }
+
+        /* one contact per line on phones, all sharing the same left edge */
+        .cv-contact {
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          gap: 6px;
+        }
+
+        .skills-grid { grid-template-columns: 1fr; }
+
+        .languages-grid { grid-template-columns: 1fr; }
+
+        .entry {
+          grid-template-columns: 1fr;
+          gap: 1px;
+        }
+
+        .entry-body { grid-column: 1; }
+
+        .entry-time {
+          padding-top: 0;
+          font-size: 10.5px;
+        }
+      }
+
+      /* small phones (iPhone SE, 320–380px): tighter page frame */
+      @media (max-width: 380px) {
+        .cv-toolbar {
+          gap: 8px;
+          padding: 10px 12px;
+          padding-top: calc(10px + env(safe-area-inset-top, 0px));
+        }
+
+        .cv-toolbar a,
+        .cv-toolbar button {
+          gap: 6px;
+          padding: 8px 12px;
+          font-size: 12.5px;
+        }
+
+        .cv-page {
+          margin: 8px;
+          margin-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+          padding: 0 16px;
+          gap: 22px;
+        }
+
+        .cv-name { font-size: 21px; }
+        .cv-role { font-size: 13.5px; }
+        .cv-section-title { font-size: 12px; }
+      }
+
+      /* print — paper stays white/black even though the screen is dark */
+
+      @media print {
+        :root {
+          --ink: #111111;
+          --ink-2: #333333;
+          --ink-3: #555555;
+          --accent: #a67c33;
+          --accent-strong: #a67c33;
+          --accent-deep: #7d5c24;
+          --accent-soft: rgba(166, 124, 51, 0.08);
+          --accent-border: #a67c33;
+          --border: #cccccc;
+          --border-strong: #999999;
+          --surface: #ffffff;
+        }
+
+        body {
+          background: #fff;
+          font-size: 12.5px;
+        }
+
+        .cv-toolbar { display: none; }
+
+        .cv-page {
+          max-width: none;
+          margin: 0;
+          padding: 0;
+          gap: 0;
+          /* block flow breaks across pages more reliably than flex */
+          display: block;
+        }
+
+        /* flatten the section cards back onto the paper */
+        .cv-header,
+        .cv-section {
+          background: none;
+          border: none;
+          border-radius: 0;
+          box-shadow: none;
+          padding: 0;
+          margin-bottom: 16px;
+        }
+
+        .cv-section { break-inside: avoid; }
+
+        /* keep the quiet skill/language rows compact on paper */
+        .skills-grid { gap: 12px 26px; }
+
+        .languages-grid { gap: 10px 22px; }
+
+        .language-meter { background: #e2e2e2; }
+
+        .language-meter::after { background: #a67c33; }
+
+        .cv-skill-tags { gap: 4px; }
+
+        .cv-skill-tags li {
+          padding: 2px 7px;
+          border-color: #d8c7a4;
+          background: #f7f2e7;
+          color: #333333;
+          font-size: 10.5px;
+        }
+
+        .entry {
+          grid-template-columns: 104px minmax(0, 1fr);
+          gap: 2px 16px;
+          margin-bottom: 12px;
+          padding-bottom: 12px;
+          break-inside: avoid;
+        }
+
+        a { color: inherit; }
+
+        @page {
+          size: A4;
+          margin: 14mm 16mm;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="cv-toolbar" role="toolbar" aria-label="CV actions">
+      <a href="./cv.pdf" download class="btn-print">
+        <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+        Download CV
+      </a>
+      <a href="./index.html" class="btn-back">
+        <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+        Back to Portfolio
+      </a>
+    </div>
+
+    <main class="cv-page" id="cv">
+      <header class="cv-header">
+        <h1 class="cv-name">Ruzaid Ahamed</h1>
+        <p class="cv-role">
+          Electro Technology Undergraduate · Web Developer · IoT &amp; Industrial
+          Automation Enthusiast
+        </p>
+        <p class="cv-objective">
+          Aspiring Electrical Design and Industrial Automation Engineer —
+          combining electrical engineering, industrial automation and software
+          development.
+        </p>
+        <div class="cv-contact">
+          <a href="mailto:ruzaitahamedzainudeen@gmail.com">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+            ruzaitahamedzainudeen@gmail.com
+          </a>
+          <a href="tel:+94757864885">
+            <ion-icon name="phone-portrait-outline" aria-hidden="true"></ion-icon>
+            +94 757 864 885
+          </a>
+          <span>
+            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+            Addalaichenai, Ampara, Sri Lanka
+          </span>
+          <a href="https://ruzait.github.io/" target="_blank" rel="noopener noreferrer">
+            <ion-icon name="globe-outline" aria-hidden="true"></ion-icon>
+            ruzait.github.io
+          </a>
+          <a href="https://github.com/ruzait" target="_blank" rel="noopener noreferrer">
+            <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+            github.com/ruzait
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ruzaid-ahamed/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
+            linkedin.com/ruzaid-ahamed
+          </a>
+        </div>
+      </header>
+
+      <section class="cv-section" aria-labelledby="profile-title">
+        <h2 class="cv-section-title" id="profile-title">Profile</h2>
+        <p class="entry-text">
+          Electro Technology undergraduate at the University of Jaffna,
+          Faculty of Technology, with a strong foundation in electrical
+          machines, power systems, electronics and control. Works as a web
+          developer — building and deploying production websites and a
+          full-stack academic result management system. Interested in the
+          intersection of electrical engineering and software: ESP32-based
+          transformer monitoring, PLC ladder logic, and MATLAB/Simulink power
+          system simulations.
+        </p>
+      </section>
+
+      <section class="cv-section" aria-labelledby="education-title">
+        <h2 class="cv-section-title" id="education-title">Education</h2>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="timeline-time">2023 – Present · Currently Pursuing</span>
+            <h3 class="timeline-title">
+              Bachelor of Engineering Technology (Honours) – BET (Hons)
+            </h3>
+            <div class="timeline-place">
+              University of Jaffna — Faculty of Technology
+            </div>
+            <p class="entry-text">
+              Undergraduate specializing in Electro Technology, with a focus on
+              electrical systems, electronics, power technology and industrial
+              automation.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-time">2020 – 2022</span>
+            <h3 class="timeline-title">
+              G.C.E. Advanced Level – Technology Stream
+            </h3>
+            <div class="timeline-place">
+              Addalaichenai National School (MMV)
+            </div>
+            <p class="entry-text">
+              Completed Advanced Level studies in the Technology Stream with a
+              focus on engineering-related subjects.
+            </p>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-time">2009 – 2019</span>
+            <h3 class="timeline-title">G.C.E. Ordinary Level (O/L)</h3>
+            <div class="timeline-place">
+              Addalaichenai National School (MMV)
+            </div>
+            <p class="entry-text">
+              Completed primary and secondary education, building a foundation
+              in science, mathematics and technology.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cv-section" aria-labelledby="certs-title">
+        <h2 class="cv-section-title" id="certs-title">Certifications</h2>
+
+        <ul class="cert-list">
+          <li class="cert-item">
+            <ion-icon name="ribbon-outline" aria-hidden="true"></ion-icon>
+            <div>
+              <span class="cert-name">
+                Siemens PLC &amp; TIA Portal Essentials
+              </span>
+              <span class="cert-meta">Packt · 2026</span>
+            </div>
+          </li>
+
+          <li class="cert-item">
+            <ion-icon name="ribbon-outline" aria-hidden="true"></ion-icon>
+            <div>
+              <span class="cert-name">MEP Quantity Surveying</span>
+              <span class="cert-meta">
+                Eclipse Campus — TVEC Registered · 2026
+              </span>
+            </div>
+          </li>
+
+          <li class="cert-item">
+            <ion-icon name="ribbon-outline" aria-hidden="true"></ion-icon>
+            <div>
+              <span class="cert-name">
+                Front-End Web Development &amp; Python Programming
+              </span>
+              <span class="cert-meta">
+                University of Moratuwa — Centre for Open and Distance Learning
+                (CODL) · 2022
+              </span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="cv-section" aria-labelledby="skills-title">
+        <h2 class="cv-section-title" id="skills-title">Technical Skills</h2>
+
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>Programming &amp; Automation Languages</h3>
+            <ul class="cv-skill-tags">
+              <li>Python</li>
+              <li>JavaScript</li>
+              <li>Ladder Logic</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Frontend Development</h3>
+            <ul class="cv-skill-tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>React.js</li>
+              <li>Vite</li>
+              <li>Tailwind CSS</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Backend Development &amp; Databases</h3>
+            <ul class="cv-skill-tags">
+              <li>Node.js</li>
+              <li>Express.js</li>
+              <li>REST APIs</li>
+              <li>MongoDB</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Electrical &amp; Power Engineering</h3>
+            <ul class="cv-skill-tags">
+              <li>Electrical Schematics</li>
+              <li>Electrical Machines</li>
+              <li>Power Systems</li>
+              <li>Electrical Installation</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Industrial Automation &amp; Control</h3>
+            <ul class="cv-skill-tags">
+              <li>Siemens PLC</li>
+              <li>TIA Portal</li>
+              <li>OpenPLC</li>
+              <li>Factory I/O</li>
+              <li>Ladder Logic</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>IoT &amp; Embedded Systems</h3>
+            <ul class="cv-skill-tags">
+              <li>ESP32</li>
+              <li>Arduino</li>
+              <li>Raspberry Pi</li>
+              <li>Sensor Integration</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>Engineering &amp; Development Tools</h3>
+            <ul class="cv-skill-tags">
+              <li>MATLAB</li>
+              <li>Simulink</li>
+              <li>AutoCAD</li>
+              <li>Git</li>
+              <li>GitHub</li>
+              <li>VS Code</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="cv-section" aria-labelledby="languages-title">
+        <h2 class="cv-section-title" id="languages-title">Languages</h2>
+
+        <ul class="languages-grid">
+          <li class="language-card language-native">
+            <span class="language-top">
+              <span class="language-name">Tamil</span>
+              <span class="language-level">Native</span>
+            </span>
+            <span class="language-meter" aria-hidden="true"></span>
+          </li>
+          <li class="language-card language-intermediate">
+            <span class="language-top">
+              <span class="language-name">English</span>
+              <span class="language-level">Intermediate</span>
+            </span>
+            <span class="language-meter" aria-hidden="true"></span>
+          </li>
+          <li class="language-card language-basic">
+            <span class="language-top">
+              <span class="language-name">Sinhala</span>
+              <span class="language-level">Basic</span>
+            </span>
+            <span class="language-meter" aria-hidden="true"></span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="cv-section" aria-labelledby="experience-title">
+        <h2 class="cv-section-title" id="experience-title">Experience</h2>
+
+        <div class="entry">
+          <span class="entry-time">2024 — Present</span>
+          <div class="entry-body">
+            <span class="entry-title">Web Developer &amp; Tech Enthusiast</span>
+            <p class="entry-text">
+              Developed responsive web applications with HTML, CSS, JavaScript
+              and React (Vite); deployed portfolio projects with optimized
+              UI/UX; used Git and GitHub for version control.
+            </p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <span class="entry-time">2025 — 2026</span>
+          <div class="entry-body">
+            <span class="entry-title">Graphic Designer</span>
+            <p class="entry-text">
+              Created visual content for Zips Campus and Atwax — marketing
+              materials and promotional graphics.
+            </p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <span class="entry-time">2019 — Present</span>
+          <div class="entry-body">
+            <span class="entry-title">Python Problem Solver</span>
+            <p class="entry-text">
+              Built automated scripts and small-scale applications for practical
+              problem-solving, data processing and workflow automation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="cv-footer">
+        <span>Ruzaid Ahamed — Curriculum Vitae</span>
+        <a href="https://ruzait.github.io/cv.html">ruzait.github.io/cv.html</a>
+      </footer>
+    </main>
+
+    <script>
+      (function () {
+        var targets = Array.prototype.slice.call(
+          document.querySelectorAll(".cv-header, .cv-section")
+        );
+        var itemSelector =
+          ".entry, .timeline-item, .skill-group, .language-card, .cert-item";
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        if (reduce.matches || !("IntersectionObserver" in window)) {
+          return;
+        }
+
+        targets.forEach(function (el) {
+          el.classList.add("reveal");
+
+          var items = el.querySelectorAll(itemSelector);
+          if (!items.length) {
+            /* header has no entry rows — cascade its direct children instead */
+            items = el.children;
+          }
+
+          Array.prototype.forEach.call(items, function (item, i) {
+            item.classList.add("reveal-item");
+            item.style.setProperty(
+              "--reveal-delay",
+              Math.min(i, 8) * 55 + "ms"
+            );
+          });
+        });
+
+        function reveal(el) {
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        }
+
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) reveal(entry.target);
+            });
+          },
+          { threshold: 0.05, rootMargin: "0px 0px -6% 0px" }
+        );
+
+        targets.forEach(function (el) {
+          observer.observe(el);
+        });
+
+        /* Scroll fallback: also reveal anything already inside the viewport.
+           Keeps content from ever getting stuck hidden if a frame is missed. */
+        function sweep() {
+          var vh = window.innerHeight || document.documentElement.clientHeight;
+
+          targets.forEach(function (el) {
+            if (el.classList.contains("is-visible")) return;
+            var box = el.getBoundingClientRect();
+            if (box.top < vh * 0.94 && box.bottom > 0) reveal(el);
+          });
+        }
+
+        window.addEventListener("scroll", sweep, { passive: true });
+        window.addEventListener("resize", sweep);
+        sweep();
+      })();
+    </script>
+  </body>
+</html>

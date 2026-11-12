@@ -191,9 +191,15 @@ input, textarea {
 html {
   font-family: var(--ff-poppins);
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
-body { background: var(--smoky-black); }
+body {
+  background: var(--smoky-black);
+  overflow-x: clip;
+}
 
 button:focus-visible,
 a:focus-visible,
@@ -372,12 +378,16 @@ main {
 
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
+  /* collapsed card = 104px avatar + 2×15px card padding */
+  max-height: 136px;
   overflow: hidden;
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+/* 700px is only the no-JS fallback: script.js measures the real
+   content height and sets an exact max-height, so the panel can
+   never clip the contacts at any width or font size. */
+.sidebar.active { max-height: 700px; }
 
 .sidebar-info {
   position: relative;
@@ -387,9 +397,15 @@ main {
   gap: 15px;
 }
 
+/* fixed square avatar — without a size the 100%-wide image used to
+   blow up to fill the card, cropping the portrait and squeezing the
+   name into a two-line sliver on phones. */
 .avatar-box {
+  flex: 0 0 auto;
+  width: 104px;
+  height: 104px;
   background: var(--bg-gradient-onyx);
-  border-radius: 20px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -399,12 +415,17 @@ main {
   object-fit: cover;
 }
 
+.info-content { min-width: 0; }
+
 .info-content .name {
   color: var(--white-2);
   font-size: var(--fs-3);
   font-weight: var(--fw-500);
   letter-spacing: -0.25px;
   margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .info-content .title {
@@ -421,6 +442,11 @@ main {
   position: absolute;
   top: -15px;
   right: -15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 0 15px;
   font-size: 13px;
   color: var(--orange-yellow-crayola);
@@ -430,6 +456,10 @@ main {
   transition: var(--transition-1);
   z-index: 1;
 }
+
+.info_more-btn ion-icon { transition: transform var(--transition-1); }
+
+.sidebar.active .info_more-btn ion-icon { transform: rotate(180deg); }
 
 .info_more-btn::before {
   content: "";
@@ -467,15 +497,18 @@ main {
 }
 
 .contact-item {
-  min-width: 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
+/* flex: 1 keeps the text block inside the card without the old
+   magic calc(); min-width: 0 lets a long email/address wrap
+   instead of forcing the card wider than the screen. */
 .contact-info {
-  max-width: calc(100% - 46px);
-  width: calc(100% - 46px);
+  flex: 1;
+  min-width: 0;
 }
 
 .contact-title {
@@ -488,6 +521,7 @@ main {
 .contact-info :is(.contact-link, time, address) {
   color: var(--white-2);
   font-size: var(--fs-7);
+  overflow-wrap: anywhere;
 }
 
 .contact-info address { font-style: normal; }
@@ -553,6 +587,78 @@ main {
 
 .navbar-link.active { 
   color: var(--orange-yellow-crayola) !important; 
+}
+
+/* fixed bottom bar: keep clear of home indicators, notches and
+   rounded corners on phones held in landscape */
+@media (max-width: 1023px) {
+
+  .navbar {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+
+    /* darker glass, gold hairline and an upward glow so the bar
+       pops off the page instead of blending into the content */
+    background: hsla(240, 2%, 12%, 0.92);
+    backdrop-filter: blur(14px);
+    border: 1px solid hsla(45, 100%, 72%, 0.16);
+    border-bottom: none;
+    box-shadow: 0 -12px 32px hsla(0, 0%, 0%, 0.5);
+  }
+
+  .navbar-list {
+    gap: 4px;
+    padding: 8px 10px;
+  }
+
+  /* pill-shaped touch targets */
+  .navbar-link {
+    position: relative;
+    padding: 14px 8px;
+    border-radius: 999px;
+    font-weight: var(--fw-500);
+    transition: color var(--transition-1);
+  }
+
+  /* keep all five tabs on one row on narrow phones */
+  @media (max-width: 420px) {
+    .navbar-link { font-size: 11px; }
+  }
+
+  /* text-only hover: the label warms up to gold */
+  .navbar-link:hover,
+  .navbar-link:focus {
+    color: var(--orange-yellow-crayola) !important;
+  }
+
+  /* the current page is marked by its text alone — bright gold and
+     bolder than the rest — plus a small gold indicator bar beneath */
+  .navbar-link.active {
+    color: var(--orange-yellow-crayola) !important;
+    font-weight: var(--fw-600);
+  }
+
+  /* every tab carries its own indicator, collapsed while inactive;
+     it grows out when a tab becomes the current page and shrinks
+     away when it stops being — the bar "comes and goes" */
+  .navbar-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--orange-yellow-crayola);
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .navbar-link.active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
 }
 
 
@@ -818,6 +924,7 @@ main {
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: hsl(0, 0%, 5%);
   opacity: 0;
   visibility: hidden;
@@ -1028,6 +1135,16 @@ main {
   line-height: 1.6;
 }
 
+/* links inside a resume timeline entry (e.g. the Projects section) */
+.timeline-text a {
+  color: var(--orange-yellow-crayola);
+  transition: var(--transition-1);
+}
+
+.timeline-text a:hover {
+  color: var(--white-2);
+}
+
 .timeline-text-list {
   color: var(--light-gray);
   font-weight: var(--fw-300);
@@ -1050,7 +1167,7 @@ main {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
   padding: 20px 0;
 }
@@ -1072,12 +1189,23 @@ main {
   transform: translateY(-4px);
 }
 
+/* icon tile — same construction as the certification cards so the
+   resume page reads as one family of cards */
 .skill-card-icon {
-  font-size: 28px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
   color: var(--orange-yellow-crayola);
   background: hsla(45, 100%, 72%, 0.1);
-  padding: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: var(--transition-1);
+}
+
+.skill-card:hover .skill-card-icon {
+  background: hsla(45, 100%, 72%, 0.16);
 }
 
 .skill-card-icon ion-icon { --ionicon-stroke-width: 40px; }
@@ -1209,7 +1337,7 @@ main {
   position: relative;
   width: 100%;
   height: 200px;
-  border-radius: 16px;
+  border-radius: 16px 16px 0 0;
   overflow: hidden;
   margin-bottom: 15px;
 }
@@ -1317,7 +1445,7 @@ main {
 .blog-banner-box {
   width: 100%;
   height: 200px;
-  border-radius: 12px;
+  border-radius: 12px 12px 0 0;
   overflow: hidden;
 }
 
@@ -1347,10 +1475,41 @@ main {
 }
 
 .blog-meta .dot {
-  background: var(--light-gray-70);
-  width: 4px;
-  height: 4px;
+  background: var(--orange-yellow-crayola);
+  width: 3px;
+  height: 3px;
   border-radius: 4px;
+  opacity: 0.6;
+}
+
+/* experiments meta — gold subject label + muted date */
+.blog-meta .blog-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.blog-meta .blog-category::before {
+  content: "";
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.blog-meta time[datetime] {
+  color: var(--light-gray-70);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-400);
+  letter-spacing: 0.04em;
 }
 
 .blog-item-title {
@@ -1748,13 +1907,15 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin-bottom: 30px;
   }
 
-  .sidebar.active { max-height: 584px; }
+  .sidebar.active { max-height: 700px; }
 
   .sidebar-info { gap: 25px; }
 
-  .avatar-box { border-radius: 30px; }
-
-  .avatar-box img { width: 120px; }
+  .avatar-box {
+    width: 140px;
+    height: 140px;
+    border-radius: 18px;
+  }
 
   .info-content .name { margin-bottom: 15px; }
 
@@ -1763,6 +1924,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   .info_more-btn {
     top: -30px;
     right: -30px;
+    min-width: 0;
     padding: 10px 15px;
   }
 
@@ -1777,11 +1939,6 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .contacts-list { gap: 20px; }
 
-  .contact-info {
-    max-width: calc(100% - 64px);
-    width: calc(100% - 64px);
-  }
-
 
 
   /**
@@ -1790,7 +1947,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .navbar { border-radius: 20px 20px 0 0; }
 
-  .navbar-list { gap: 20px; }
+  .navbar-list { gap: 8px; }
 
   .navbar-link { --fs-8: 14px; }
 
@@ -1935,7 +2092,9 @@ textarea.form-input::-webkit-resizer { display: none; }
    * #PORTFOLIO, BLOG
    */
 
-  .project-img, .blog-banner-box { border-radius: 16px; }
+  .project-img { border-radius: 16px 16px 0 0; }
+
+  .blog-banner-box { border-radius: 16px 16px 0 0; }
 
   .blog-posts-list { gap: 30px; }
 
@@ -2123,9 +2282,14 @@ textarea.form-input::-webkit-resizer { display: none; }
    * REUSED STYLE
    */
 
-  .sidebar, article {
-    width: 950px;
+  .article {
     box-shadow: var(--shadow-5);
+  }
+
+  .sidebar {
+    /* the old portfolio's column width */
+    width: 275px;
+    flex-shrink: 0;
   }
 
   /**
@@ -2140,12 +2304,88 @@ textarea.form-input::-webkit-resizer { display: none; }
    * MAIN 
    */
 
-  main { margin-bottom: 60px; }
+  main {
+    margin-bottom: 60px;
+    display: flex;
+    align-items: stretch;
+    gap: 25px;
+  }
 
   .main-content {
     position: relative;
-    width: max-content;
-    margin: auto;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  /**
+   * SIDEBAR
+   */
+
+  .sidebar {
+    position: sticky;
+    top: 60px;
+    /* max-content caps the flex-stretched height at the card's own
+       content — with max-height: none the column stretches as tall as
+       the article beside it, and sticky has no room to pin it while
+       scrolling */
+    max-height: max-content;
+    height: 100%;
+    margin-bottom: 0;
+    padding-top: 60px;
+    z-index: 1;
+  }
+
+  /* the desktop column always shows the contacts — hide the mobile
+     toggle and keep the panel open even if it was left .active after
+     resizing from a phone-sized viewport */
+  .info_more-btn { display: none; }
+
+  .sidebar-info_more {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sidebar.active { max-height: max-content; }
+
+  /* single-column contacts — the 768px query lays them out in two
+     columns for the full-width stacked card, which would collapse to
+     unreadable ~90px slivers inside this narrow column */
+  .contacts-list { grid-template-columns: 1fr; }
+
+  /* centered profile column — the card is too narrow for the
+     side-by-side avatar + name row below 1250px */
+  .sidebar-info { flex-direction: column; }
+
+  .avatar-box {
+    width: 180px;
+    height: 180px;
+    max-width: 100%;
+  }
+
+  .info-content .name {
+    white-space: nowrap;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  /* the narrow column cannot fit the full address on one line —
+     wrap it instead of hiding the domain behind an ellipsis */
+  .contact-info :is(.contact-link) {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-info :is(.contact-link, time, address) {
+    --fs-7: 14px;
+    font-weight: var(--fw-300);
+  }
+
+  .social-list { justify-content: center; }
+
+  .separator:last-of-type {
+    margin: 15px 0;
+    opacity: 0;
   }
 
 
@@ -2286,8 +2526,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .main-content {
-    min-width: 75%;
-    width: 75%;
+    width: auto;
     margin: 0;
   }
 
@@ -2302,18 +2541,31 @@ textarea.form-input::-webkit-resizer { display: none; }
     top: 60px;
     max-height: max-content;
     height: 100%;
+    /* width: auto (set with the articles above) would let the sidebar
+       eat the space the content column should fill — pin the old
+       portfolio's 275px column set at the 1024px breakpoint */
+    width: 275px;
+    flex-shrink: 0;
     margin-bottom: 0;
     padding-top: 60px;
     z-index: 1;
   }
 
+  /* desktop always shows the contacts — the toggle is hidden, so a
+     leftover .active from a phone-sized viewport must not clip it */
+  .sidebar.active { max-height: max-content; }
+
   .sidebar-info { flex-direction: column; }
 
-  .avatar-box img { width: 150px; }
+  .avatar-box {
+    width: 180px;
+    height: 180px;
+  }
 
   .info-content .name {
     white-space: nowrap;
     text-align: center;
+    max-width: 100%;
   }
 
   .info-content .title { margin: auto; }
@@ -2327,10 +2579,11 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .contacts-list { grid-template-columns: 1fr; }
 
+  /* the narrow column cannot fit the full address on one line —
+     wrap it instead of hiding the domain behind an ellipsis */
   .contact-info :is(.contact-link) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .contact-info :is(.contact-link, time, address) {
@@ -2353,4 +2606,928 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .timeline-text { max-width: 700px; }
 
+}
+
+
+
+/*-----------------------------------*\
+  #NEW COMPONENTS
+  Styles for the components added in the 2026 content update:
+  hero, call-to-action buttons, project cards and skill tags.
+  Every rule below is built from the original tokens and
+  construction patterns of this stylesheet, so the original
+  visual identity is fully preserved.
+\*-----------------------------------*/
+
+/**
+ * #hero
+ */
+
+.hero { margin-bottom: 35px; }
+
+.hero-eyebrow {
+  color: var(--vegas-gold);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-400);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 13px;
+}
+
+.hero-title {
+  color: var(--white-2);
+  font-size: clamp(30px, 6vw, 42px);
+  font-weight: var(--fw-500);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+.hero-title .accent { color: var(--orange-yellow-crayola); }
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+
+  .hero-title .accent {
+    background: var(--text-gradient-yellow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+}
+
+/**
+ * #hero roles — chips built from the original pill construction
+ * (the sidebar title pill: onyx fill, fs-8 scale, 8px radius) with
+ * the icon-box stroke weight. Hover follows the theme's gold-wash
+ * language: crayola border, 10% gold fill, brighter text and the
+ * same subtle lift the cards use.
+ */
+
+.hero-roles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.hero-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px;
+  background: var(--onyx);
+  border: 1px solid var(--jet);
+  border-radius: 8px;
+  color: var(--light-gray);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-400);
+  white-space: nowrap;
+  transition: var(--transition-1);
+}
+
+.hero-role ion-icon {
+  color: var(--orange-yellow-crayola);
+  font-size: 15px;
+  --ionicon-stroke-width: 35px;
+}
+
+.hero-role:hover {
+  border-color: var(--orange-yellow-crayola);
+  background: hsla(45, 100%, 72%, 0.1);
+  color: var(--white-2);
+  transform: translateY(-2px);
+}
+
+.hero-text {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.hero-text p { margin-bottom: 12px; }
+
+.hero-text p:last-child { margin-bottom: 0; }
+
+.hero-text strong {
+  color: var(--white-2);
+  font-weight: var(--fw-500);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+
+/**
+ * #sidebar — the profile title pill was removed from the header;
+ * zero the name's resting margin so it stays vertically centered.
+ */
+
+.info-content .name:only-child { margin-bottom: 0; }
+
+/* desktop column layout (≥1250px): the pill used to fill the space
+ * under the name, so the contacts section's divider kept a 32px
+ * top margin from the wider layout. Pull it up to the base 16px
+ * so the column doesn't hang empty below the name. */
+
+@media (min-width: 1250px) {
+
+  .sidebar-info_more > .separator:first-child { margin-top: 16px; }
+
+}
+
+
+/**
+ * #content entrance — smooth appearance.
+ * When a page becomes active (the same moment the original
+ * stylesheet fades the whole article in), its top-level blocks
+ * fade up in a quick stagger — and the hero reveals its own
+ * inner elements the same way. Same 0.5s ease timing as the
+ * original fade keyframe; fully disabled under
+ * prefers-reduced-motion.
+ */
+
+@keyframes contentIn {
+  0% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+article.active > * {
+  animation: contentIn 0.5s ease backwards;
+}
+
+article.active > *:nth-child(2) { animation-delay: 0.05s; }
+article.active > *:nth-child(3) { animation-delay: 0.1s; }
+article.active > *:nth-child(4) { animation-delay: 0.15s; }
+article.active > *:nth-child(5) { animation-delay: 0.2s; }
+article.active > *:nth-child(6) { animation-delay: 0.25s; }
+article.active > *:nth-child(7) { animation-delay: 0.3s; }
+article.active > *:nth-child(n+8) { animation-delay: 0.35s; }
+
+/* the hero reveals its own content instead of appearing as one block */
+
+article.active > .hero { animation: none; }
+
+.hero > * {
+  animation: contentIn 0.5s ease backwards;
+}
+
+.hero > *:nth-child(2) { animation-delay: 0.07s; }
+.hero > *:nth-child(3) { animation-delay: 0.14s; }
+.hero > *:nth-child(4) { animation-delay: 0.21s; }
+.hero > *:nth-child(5) { animation-delay: 0.28s; }
+
+@media (prefers-reduced-motion: reduce) {
+
+  article.active > *,
+  .hero > * { animation: none; }
+
+}
+
+
+/**
+ * #scroll reveal — content fades up into view while scrolling.
+ * Gated behind the .js-reveal class that script.js adds only when
+ * IntersectionObserver is available and the user has no
+ * reduced-motion preference — otherwise the page renders fully
+ * visible, exactly like the original. Same fade-up distance and
+ * 0.5s ease timing as the content entrance above; script.js
+ * removes the attribute after the transition so element-specific
+ * hover effects keep working untouched.
+ */
+
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.js-reveal [data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/**
+ * Technical Stack — the tool images fade in, rise and gently
+ * grow into view while scrolling the page or the strip itself
+ * (items outside the strip's visible clip stay hidden until it
+ * scrolls). Same 0.5s ease timing; the grayscale→color hover
+ * on the images is untouched.
+ */
+
+.js-reveal .clients-item[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.js-reveal .clients-item[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+}
+
+
+/**
+ * #buttons — original layered construction
+ * (gradient ring + inset gradient fill via ::before,
+ * the same technique as .form-btn / .info_more-btn / .scroll-to-top)
+ */
+
+.btn {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  color: var(--orange-yellow-crayola);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-radius: 14px;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  box-shadow: var(--shadow-2);
+  z-index: 1;
+  transition: var(--transition-1);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--bg-gradient-jet);
+  z-index: -1;
+  transition: var(--transition-1);
+}
+
+.btn:hover,
+.btn:focus-visible { background: var(--bg-gradient-yellow-1); }
+
+.btn:hover::before,
+.btn:focus-visible::before { background: var(--bg-gradient-yellow-2); }
+
+.btn ion-icon {
+  font-size: 16px;
+  transition: var(--transition-1);
+}
+
+.btn:hover ion-icon,
+.btn:focus-visible ion-icon { transform: translateX(2px); }
+
+
+/**
+ * ghost — quiet outline button that wakes up with the
+ * original gold wash (bg-gradient-yellow-2) on hover.
+ */
+
+.btn-ghost {
+  background: none;
+  box-shadow: none;
+  color: var(--light-gray);
+  border: 1px solid var(--jet);
+}
+
+.btn-ghost::before { display: none; }
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  color: var(--orange-yellow-crayola);
+  border-color: var(--orange-yellow-crayola);
+  background: var(--bg-gradient-yellow-2);
+}
+
+.btn-ghost:hover ion-icon,
+.btn-ghost:focus-visible ion-icon { transform: translateY(2px); }
+
+.btn-icon {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  color: var(--light-gray);
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  z-index: 1;
+  transition: var(--transition-1);
+}
+
+.btn-icon::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--bg-gradient-jet);
+  z-index: -1;
+  transition: var(--transition-1);
+}
+
+.btn-icon:hover,
+.btn-icon:focus-visible {
+  color: var(--orange-yellow-crayola);
+  background: var(--bg-gradient-yellow-1);
+}
+
+.btn-icon:hover::before,
+.btn-icon:focus-visible::before { background: var(--bg-gradient-yellow-2); }
+
+.btn-icon ion-icon { font-size: 19px; }
+
+
+/**
+ * #skill tags — original accent pill (the project cards used to show
+ * these too; the tag rows were removed from the projects section)
+ */
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tags li {
+  color: var(--orange-yellow-crayola);
+  background: hsla(45, 100%, 72%, 0.1);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-300);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.4px;
+}
+
+
+/**
+ * #project card — original blog-card construction
+ * (border-gradient-onyx ring + inset eerie-black fill).
+ * The hover dim overlay and image zoom come from the
+ * original rules above (.project-img::before and
+ * .project-item > a:hover img).
+ */
+
+.project-card {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  height: 100%;
+  box-shadow: var(--shadow-4);
+  border-radius: 16px;
+  z-index: 1;
+  display: block;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--eerie-black-1);
+  z-index: -1;
+}
+
+.project-card--static { cursor: default; }
+
+.project-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--jet);
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-400);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.project-badge ion-icon { font-size: 12px; }
+
+.project-open-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: var(--jet);
+  color: var(--orange-yellow-crayola);
+  padding: 9px;
+  border-radius: 10px;
+  font-size: 16px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: var(--transition-1);
+}
+
+a.project-card:hover .project-open-icon,
+a.project-card:focus-visible .project-open-icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* touch screens cannot hover — keep the affordance always visible */
+@media (hover: none) {
+  .project-open-icon {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.project-body { padding: 0 15px 15px; }
+
+.project-body .project-title,
+.project-body .project-category { margin-left: 0; }
+
+/* category eyebrow — small gold label with a diamond marker */
+.project-body .project-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.project-body .project-category::before {
+  content: "";
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+/* the card now ends with the project title, so it keeps a little
+   breathing room above the body's bottom padding */
+.project-body .project-title { margin-bottom: 8px; }
+
+
+/**
+ * responsive larger than 580px screen
+ */
+
+@media (min-width: 580px) {
+
+  .btn {
+    --fs-6: 16px;
+    padding: 16px 26px;
+  }
+
+  .btn ion-icon { font-size: 18px; }
+
+  .project-body { padding: 0 25px 25px; }
+
+}
+
+
+/**
+ * responsive larger than 768px screen
+ */
+
+@media (min-width: 768px) {
+
+  .hero-actions { gap: 15px; }
+
+}
+
+
+/**
+ * responsive smaller than 580px screen
+ * the chips tighten so the longest role still fits; wrapping
+ * replaces nowrap so nothing can ever clip horizontally.
+ */
+
+@media (max-width: 579px) {
+
+  .hero { margin-bottom: 24px; }
+
+  .hero-eyebrow {
+    font-size: var(--fs-8);
+    letter-spacing: 0.5px;
+    /* split the long label into two even lines instead of a ragged
+       wrap that strands a word on its own line */
+    text-wrap: balance;
+    margin-bottom: 10px;
+  }
+
+  .hero-title {
+    /* gentler ramp than 9vw so the gold phrase fits on one line
+       down to the narrowest phones (spans are display:block by the
+       global reset, so the phrase owns its line at every size) */
+    font-size: clamp(19px, 7.5vw, 32px);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    text-wrap: balance;
+    margin-bottom: 14px;
+  }
+
+  /* the gold phrase gets its own line: the title reads as two
+     clean statements instead of mixing white and gold mid-line when
+     it wraps. fit-content keeps the gradient hugging the words. */
+  .hero-title .accent { display: block; width: fit-content; }
+
+  .hero-roles { gap: 8px; margin-bottom: 16px; }
+
+  .hero-role {
+    font-size: var(--fs-8);
+    padding: 5px 10px;
+    gap: 7px;
+    white-space: normal;
+  }
+
+  .hero-role ion-icon { font-size: 13px; }
+
+  .hero-text {
+    font-size: var(--fs-7);
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .hero-actions { gap: 10px; margin-bottom: 20px; }
+
+  .blog-meta {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .blog-meta .blog-category {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+}
+
+
+/**
+ * responsive very narrow phones (below ~344px)
+ * the five navbar links wrap onto a second row at these widths,
+ * making the fixed bottom navbar taller than the 75px the base
+ * stylesheet reserves under <main>. Reserve enough room for the
+ * wrapped bar (script.js also keeps this matched to the real
+ * navbar height at every width; this rule is the no-JS fallback).
+ */
+
+@media (max-width: 359px) {
+
+  main { margin-bottom: 130px; }
+
+  /* ultra-narrow screens: never enforce a minimum content width */
+  main { min-width: 0; }
+
+  /* keep the portrait, name and "show contacts" corner button from
+     crowding each other at 280–359px */
+  .avatar-box {
+    width: 78px;
+    height: 78px;
+    border-radius: 10px;
+  }
+
+  .sidebar-info { gap: 12px; }
+
+  .info-content .name {
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+}
+
+
+/**
+ * responsive larger than 1024px screen
+ */
+
+@media (min-width: 1024px) {
+
+  /**
+   * navbar clearance — the original theme floats the navbar
+   * (absolute, top-right) over the first 65px of the article's
+   * top strip. Give the article content room to start below
+   * that strip so the hero and every section heading are
+   * never covered by it.
+   */
+
+  article { padding-top: 95px; }
+
+  /* trim 5px from the profile card's bottom padding (670 → 665px,
+     686 → 681px) without changing any content or spacing above it */
+  .sidebar { padding-bottom: 25px; }
+
+}
+
+
+/**
+ * #visual timeline — a shared, card-based timeline component used
+ * by the Education, Achievements and Experience sections. Same
+ * construction pattern as the skill cards (jet-2 surface + gold
+ * hover ring) with a marker rail that guides the eye down the list.
+ * Markup lives in index.html under the aria-labelled
+ * <section class="timeline"> blocks of the Resume page.
+ */
+
+.vt-timeline {
+  position: relative;
+  max-width: 760px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the rail connecting the markers */
+.vt-timeline::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  left: 21px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    hsla(45, 54%, 58%, 0.55),
+    hsla(45, 54%, 58%, 0.08)
+  );
+}
+
+.vt-timeline-item {
+  position: relative;
+  padding-left: 68px;
+}
+
+.vt-timeline-item:not(:last-child) { margin-bottom: 22px; }
+
+/* circular marker that sits on the rail */
+.vt-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--vegas-gold);
+  background: var(--eerie-black-1);
+  border: 1px solid hsla(45, 54%, 58%, 0.3);
+  box-shadow: 0 0 0 4px var(--eerie-black-2);
+  z-index: 1;
+  transition: var(--transition-1);
+}
+
+.vt-timeline-item:hover .vt-marker {
+  border-color: var(--orange-yellow-crayola);
+  box-shadow: 0 0 0 4px hsla(45, 100%, 72%, 0.12);
+}
+
+.vt-card {
+  background: var(--jet-2);
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 18px;
+  transition: var(--transition-1);
+}
+
+.vt-timeline-item:hover .vt-card {
+  border-color: var(--orange-yellow-crayola);
+  box-shadow: var(--shadow-1);
+  transform: translateY(-3px);
+}
+
+/* date pill + status badge row */
+.vt-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.vt-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--vegas-gold);
+  background: hsla(45, 100%, 72%, 0.1);
+  border: 1px solid hsla(45, 54%, 58%, 0.22);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.4px;
+}
+
+.vt-date ion-icon { font-size: 13px; }
+
+.vt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-300);
+  letter-spacing: 0.4px;
+}
+
+.vt-badge ion-icon { font-size: 12px; }
+
+.vt-badge--ongoing { color: var(--orange-yellow-crayola); }
+
+.vt-title {
+  color: var(--white-2);
+  font-size: var(--fs-5);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.vt-institution {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-400);
+  margin-bottom: 10px;
+}
+
+.vt-institution ion-icon {
+  font-size: 13px;
+  color: var(--vegas-gold);
+  flex-shrink: 0;
+}
+
+.vt-text {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+}
+
+/* bullet lists inside a timeline card (experience duties).
+   Matches the old .timeline-text-list construction but scoped to
+   the card so it also works without the legacy .timeline-list. */
+.vt-list {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.vt-list li {
+  margin-bottom: 6px;
+  list-style-type: disc;
+}
+
+.vt-list li:last-child { margin-bottom: 0; }
+
+/* narrow screens — shrink the rail and markers so the cards keep
+   a comfortable reading width */
+@media (max-width: 450px) {
+
+  .vt-timeline-item { padding-left: 56px; }
+
+  .vt-marker { width: 38px; height: 38px; font-size: 17px; }
+
+  .vt-timeline::before { left: 18px; top: 19px; }
+
+}
+
+
+/**
+ * #certifications — "lite" cards: a light, scannable grid instead
+ * of a heavy timeline. The auto-fill grid flows from one column on
+ * phones to two or three columns on wider screens with no extra
+ * breakpoints, and the meta row is pinned to the card bottom so
+ * the year + category tags always line up across cards.
+ */
+
+.cert-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--jet-2);
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 20px;
+  transition: var(--transition-1);
+}
+
+.cert-card:hover {
+  border-color: var(--orange-yellow-crayola);
+  box-shadow: var(--shadow-1);
+  transform: translateY(-4px);
+}
+
+.cert-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 20px;
+  color: var(--vegas-gold);
+  background: hsla(45, 100%, 72%, 0.1);
+  margin-bottom: 4px;
+  transition: var(--transition-1);
+}
+
+.cert-card:hover .cert-icon {
+  background: hsla(45, 100%, 72%, 0.16);
+}
+
+.cert-title {
+  color: var(--white-2);
+  font-size: var(--fs-5);
+  line-height: 1.35;
+}
+
+.cert-issuer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--light-gray-70);
+  font-size: var(--fs-7);
+}
+
+.cert-issuer ion-icon {
+  font-size: 13px;
+  color: var(--vegas-gold);
+  flex-shrink: 0;
+}
+
+.cert-desc {
+  color: var(--light-gray);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-300);
+  line-height: 1.6;
+}
+
+.cert-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.cert-year {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--vegas-gold);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  letter-spacing: 0.4px;
+}
+
+.cert-year ion-icon { font-size: 12px; }
+
+/* same accent pill construction as the skill tags */
+.cert-tag {
+  color: var(--orange-yellow-crayola);
+  background: hsla(45, 100%, 72%, 0.1);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-300);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.4px;
 }

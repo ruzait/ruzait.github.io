@@ -1,0 +1,1166 @@
+/* ==========================================================================
+   lab.css — Shared stylesheet for engineering lab-report pages (lab-work/)
+   A print-friendly "engineering report" skin built on the portfolio design
+   system: dark surfaces, light-gray type, gold-crayola accents, Poppins.
+
+   Structure
+   ---------
+   1.  Tokens
+   2.  Base + page texture
+   3.  Report shell (header / main / footer)
+   4.  Numbered sections
+   5.  Typography blocks (figures, code, notes, tables, lists, references)
+   6.  Interaction, accessibility, responsive, print
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Surfaces */
+  --bg: #101010;
+  --surface: #1a1a1a;
+  --surface-alt: #202020;
+  --surface-tint: #292929;
+  --surface-deep: #151515;
+
+  /* Ink */
+  --ink: #ffffff;
+  --ink-2: #d6d6d6;
+  --ink-3: rgba(214, 214, 214, 0.68);
+  --ink-4: rgba(214, 214, 214, 0.45);
+
+  /* Accent */
+  --accent: #ffdb70;
+  --accent-strong: #ffbb5c;
+  --accent-deep: #ceb15a;
+  --accent-soft: hsla(45, 100%, 72%, 0.12);
+  --accent-wash: hsla(45, 100%, 72%, 0.06);
+  --accent-border: hsla(45, 100%, 72%, 0.32);
+
+  /* Lines & shadows */
+  --border: #2b2b2b;
+  --border-strong: #383838;
+  --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
+  --shadow-2: 0 16px 34px hsla(0, 0%, 0%, 0.28);
+  --shadow-gold: 0 10px 28px hsla(45, 100%, 60%, 0.16);
+
+  /* Radii */
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  /* Type */
+  --ff-body: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --ff-display: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --ff-mono: "Consolas", "Monaco", "Courier New", monospace;
+
+  --fs-6: 14px;
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+}
+
+/* --------------------------------------------------------------------------
+   2. Base + page texture
+   -------------------------------------------------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--ff-body);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 520px at 10% -10%, hsla(45, 100%, 72%, 0.09), transparent 62%),
+    radial-gradient(700px 420px at 94% 2%, hsla(35, 100%, 68%, 0.05), transparent 60%);
+  background-repeat: no-repeat;
+  color: var(--ink-2);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 44px 20px calc(72px + env(safe-area-inset-bottom, 0px));
+  font-size: 15px;
+  line-height: 1.75;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Faint blueprint grid, faded toward the page edges */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(hsla(0, 0%, 100%, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(0, 0%, 100%, 0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 76%);
+  mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 76%);
+}
+
+::selection {
+  background: hsla(45, 100%, 72%, 0.28);
+  color: #fff;
+}
+
+a {
+  color: var(--accent-deep);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   3. Report shell
+   -------------------------------------------------------------------------- */
+
+.lab-container {
+  position: relative;
+  z-index: 1;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.lab-header {
+  position: relative;
+  padding: 54px 40px 42px;
+  text-align: center;
+  background:
+    radial-gradient(120% 150% at 50% -40%, hsla(45, 100%, 72%, 0.11), transparent 60%),
+    linear-gradient(180deg, #1d1d1d, #181818);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+}
+
+/* gold hairline across the top */
+.lab-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent) 22%,
+    var(--accent-strong) 50%,
+    var(--accent) 78%,
+    transparent
+  );
+}
+
+/* soft glow behind the report badge */
+.lab-header::after {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  width: 420px;
+  height: 240px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, hsla(45, 100%, 72%, 0.10), transparent);
+  pointer-events: none;
+}
+
+.lab-icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: var(--accent);
+  background: linear-gradient(160deg, hsla(45, 100%, 72%, 0.18), hsla(45, 100%, 72%, 0.04));
+  border: 1px solid var(--accent-border);
+  border-radius: 16px;
+  box-shadow:
+    var(--shadow-gold),
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.07);
+}
+
+.lab-title {
+  position: relative;
+  z-index: 1;
+  max-width: 22ch;
+  margin: 0 auto 16px;
+  font-family: var(--ff-display);
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: var(--fw-600);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* tag row — module pill + semester chip */
+.lab-tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.lab-category {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 7px 16px 7px 14px;
+  background: var(--accent-wash);
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  font-size: 11px;
+  font-weight: var(--fw-600);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.lab-category::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 9px var(--accent);
+}
+
+/* quieter companion chip — semester / term */
+.lab-category--alt {
+  padding-left: 16px;
+  background: hsla(0, 0%, 100%, 0.03);
+  border-color: var(--border-strong);
+  color: var(--ink-3);
+  letter-spacing: 0.12em;
+}
+
+.lab-category--alt::before {
+  background: var(--accent-deep);
+  box-shadow: none;
+}
+
+.lab-main {
+  counter-reset: labsec;
+  padding: 40px 40px 44px;
+  background: linear-gradient(180deg, #1b1b1b, #171717);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+/* --------------------------------------------------------------------------
+   4. Numbered sections
+   -------------------------------------------------------------------------- */
+
+.lab-section {
+  position: relative;
+  counter-increment: labsec;
+  padding: 24px 26px 24px 68px;
+  margin-bottom: 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.45s ease both;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.lab-section:hover {
+  background: hsla(0, 0%, 100%, 0.018);
+  border-color: var(--border);
+}
+
+.lab-section:last-child {
+  margin-bottom: 0;
+}
+
+/* outlined section index — the report's "spec sheet" numbering */
+.lab-section::before {
+  content: counter(labsec, decimal-leading-zero);
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  font-family: var(--ff-display);
+  font-size: 26px;
+  font-weight: var(--fw-600);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: hsla(45, 100%, 72%, 0.2);
+}
+
+@supports (-webkit-text-stroke: 1px red) {
+  .lab-section::before {
+    color: transparent;
+    -webkit-text-stroke: 1px hsla(45, 100%, 72%, 0.42);
+  }
+}
+
+/* fading rail under the number */
+.lab-section::after {
+  content: "";
+  position: absolute;
+  top: 56px;
+  bottom: 24px;
+  left: 37px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent-border), transparent 80%);
+  opacity: 0.45;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* hairline that trails off after the heading */
+.section-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-strong), transparent 88%);
+}
+
+.section-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  font-size: 17px;
+  color: var(--accent);
+  background: var(--surface-tint);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.section-title {
+  font-family: var(--ff-display);
+  font-size: 12.5px;
+  font-weight: var(--fw-600);
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+}
+
+.section-content {
+  padding-left: 0;
+  overflow-wrap: break-word;
+}
+
+.section-content p {
+  margin-bottom: 14px;
+  color: var(--ink-2);
+  line-height: 1.85;
+}
+
+.section-content p:last-child {
+  margin-bottom: 0;
+}
+
+.section-content strong {
+  color: var(--ink);
+  font-weight: var(--fw-600);
+}
+
+.section-content em {
+  color: var(--ink-3);
+}
+
+.section-content > :last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5a. Figures
+   -------------------------------------------------------------------------- */
+
+.lab-figure {
+  margin: 20px 0;
+}
+
+.figure-frame {
+  position: relative;
+  padding: 10px;
+  background: var(--surface-deep);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+.figure-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, 0.03);
+  pointer-events: none;
+}
+
+.figure-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  transition: transform 0.5s ease;
+}
+
+.figure-frame:hover img {
+  transform: scale(1.008);
+}
+
+.figure-caption {
+  position: relative;
+  display: block;
+  margin-top: 12px;
+  padding-left: 15px;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.figure-caption::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   5b. Info & note boxes
+   -------------------------------------------------------------------------- */
+
+.info-box {
+  padding: 16px 20px;
+  margin: 18px 0;
+  background: linear-gradient(100deg, hsla(45, 100%, 72%, 0.11), hsla(45, 100%, 72%, 0.03));
+  border: 1px solid var(--accent-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+.info-box strong {
+  color: var(--accent-strong);
+  font-weight: var(--fw-600);
+}
+
+.note-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  background: hsla(0, 0%, 100%, 0.022);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.note-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.note-box p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.72;
+  color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   5c. Tables
+   -------------------------------------------------------------------------- */
+
+.lab-table {
+  width: 100%;
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1b1b1b;
+  font-size: 14px;
+}
+
+.lab-table thead {
+  background: linear-gradient(180deg, hsla(0, 0%, 100%, 0.055), hsla(0, 0%, 100%, 0.02));
+}
+
+.lab-table th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: var(--fw-600);
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.lab-table td {
+  padding: 12px 16px;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.lab-table tbody tr:nth-child(even) {
+  background: hsla(0, 0%, 100%, 0.015);
+}
+
+.lab-table tbody tr {
+  transition: background 0.25s ease;
+}
+
+.lab-table tbody tr:hover {
+  background: var(--accent-wash);
+}
+
+.lab-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --------------------------------------------------------------------------
+   5d. Lists
+   -------------------------------------------------------------------------- */
+
+.custom-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0 0;
+}
+
+.custom-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 10px;
+  color: var(--ink-2);
+}
+
+.custom-list li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.68em;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.numbered-list {
+  list-style: none;
+  counter-reset: step;
+  padding-left: 0;
+  margin: 8px 0 0;
+}
+
+.numbered-list li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 44px;
+  margin-bottom: 14px;
+  color: var(--ink-2);
+}
+
+.numbered-list li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  border-radius: 50%;
+  color: var(--accent-strong);
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  font-weight: var(--fw-600);
+}
+
+/* --------------------------------------------------------------------------
+   5e. Code / calculation blocks
+   -------------------------------------------------------------------------- */
+
+.code-block {
+  position: relative;
+  margin: 18px 0;
+  padding: 20px 20px 18px;
+  background:
+    linear-gradient(180deg, hsla(45, 100%, 72%, 0.04), transparent 42%),
+    var(--surface-deep);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-border);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+}
+
+.code-block::before {
+  content: "CODE";
+  position: absolute;
+  top: 9px;
+  right: 13px;
+  padding: 2px 6px;
+  background: rgba(16, 16, 16, 0.85);
+  border-radius: 4px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  font-weight: var(--fw-600);
+  letter-spacing: 0.2em;
+  color: hsla(45, 100%, 72%, 0.55);
+}
+
+pre {
+  margin: 0;
+  font-family: var(--ff-mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #c9c9c9;
+}
+
+/* --------------------------------------------------------------------------
+   5f. References
+   -------------------------------------------------------------------------- */
+
+.reference-list {
+  counter-reset: ref;
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0 0;
+}
+
+.reference-list li {
+  position: relative;
+  counter-increment: ref;
+  padding: 13px 16px 13px 48px;
+  background: #1b1b1b;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.reference-list li::before {
+  content: "[" counter(ref) "]";
+  position: absolute;
+  left: 16px;
+  top: 13px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  font-weight: var(--fw-600);
+  color: var(--accent-deep);
+  letter-spacing: -0.02em;
+}
+
+.reference-list li:hover {
+  background: var(--accent-wash);
+  border-color: var(--accent-border);
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   3b. Footer
+   -------------------------------------------------------------------------- */
+
+.lab-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 26px 40px;
+  background: linear-gradient(180deg, #181818, #1c1c1c);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--shadow-2);
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #171717;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: var(--fw-600);
+  text-decoration: none;
+  box-shadow: var(--shadow-gold);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.back-btn:hover {
+  color: #171717;
+  transform: translateX(-3px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 30px hsla(45, 100%, 60%, 0.28);
+}
+
+.back-btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.lab-date {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-4);
+  font-size: 12.5px;
+}
+
+.lab-date ion-icon {
+  color: var(--accent-deep);
+  font-size: 15px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Accessibility — reduced motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .lab-section {
+    animation: none;
+  }
+
+  .back-btn,
+  .reference-list li,
+  .figure-frame img,
+  .lab-table tbody tr {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 575px) {
+  body {
+    padding: 16px 12px calc(44px + env(safe-area-inset-bottom, 0px));
+    font-size: 14.5px;
+  }
+
+  .lab-header {
+    padding: 38px 20px 30px;
+  }
+
+  .lab-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 21px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+
+  .lab-title {
+    font-size: 22px;
+    max-width: none;
+  }
+
+  .lab-category {
+    padding: 6px 13px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .lab-tags {
+    gap: 8px;
+  }
+
+  .lab-main {
+    padding: 24px 16px 28px;
+  }
+
+  .lab-section {
+    padding: 20px 16px 20px 54px;
+    margin-bottom: 8px;
+  }
+
+  .lab-section::before {
+    top: 18px;
+    left: 18px;
+    font-size: 20px;
+  }
+
+  .lab-section::after {
+    top: 44px;
+    left: 28px;
+    bottom: 20px;
+  }
+
+  .section-header {
+    gap: 9px;
+  }
+
+  .section-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .lab-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 12px;
+  }
+
+  .lab-table th,
+  .lab-table td {
+    padding: 9px 10px;
+    min-width: 84px;
+  }
+
+  .code-block {
+    padding: 17px 15px 15px;
+  }
+
+  pre {
+    font-size: 12px;
+  }
+
+  .numbered-list li {
+    padding-left: 38px;
+  }
+
+  .numbered-list li::before {
+    width: 25px;
+    height: 25px;
+    font-size: 11px;
+  }
+
+  .custom-list li {
+    padding-left: 22px;
+  }
+
+  .reference-list li {
+    padding: 11px 12px 11px 42px;
+    font-size: 12px;
+  }
+
+  .reference-list li::before {
+    left: 13px;
+    top: 11px;
+  }
+
+  .info-box,
+  .note-box {
+    padding: 13px 15px;
+  }
+
+  .lab-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .back-btn {
+    justify-content: center;
+  }
+
+  .lab-date {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  body {
+    padding: 28px 18px 52px;
+  }
+
+  .lab-header,
+  .lab-footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .lab-main {
+    padding: 32px 26px 34px;
+  }
+
+  .lab-title {
+    font-size: 27px;
+  }
+
+  .lab-section {
+    padding: 22px 22px 22px 62px;
+  }
+
+  .lab-section::before {
+    left: 22px;
+  }
+
+  .lab-section::after {
+    left: 35px;
+  }
+
+  .lab-table {
+    font-size: 13px;
+  }
+
+  .lab-table th,
+  .lab-table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Print — clean black-on-white report output
+   -------------------------------------------------------------------------- */
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff;
+    color: #1b1b1b;
+    padding: 0;
+    font-size: 11.5pt;
+  }
+
+  body::before,
+  .lab-header::after,
+  .lab-section::after,
+  .figure-frame:hover img,
+  .back-btn {
+    display: none !important;
+  }
+
+  .lab-container {
+    max-width: none;
+  }
+
+  .lab-header,
+  .lab-main,
+  .lab-footer {
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    box-shadow: none;
+  }
+
+  .lab-header {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .lab-footer {
+    border-radius: 0 0 10px 10px;
+    border-top: none;
+  }
+
+  .lab-icon {
+    color: #8a6d1f;
+    background: none;
+    border-color: #cfcfcf;
+    box-shadow: none;
+  }
+
+  .lab-title,
+  .lab-table th,
+  .section-title,
+  .section-content strong {
+    color: #111;
+  }
+
+  .lab-category {
+    color: #6d5413;
+    border-color: #cfcfcf;
+    background: #faf6e8;
+  }
+
+  .lab-category::before {
+    background: #8a6d1f;
+    box-shadow: none;
+  }
+
+  .lab-section {
+    padding: 10px 0 10px 40px;
+    margin-bottom: 6px;
+    break-inside: avoid;
+    animation: none;
+  }
+
+  .lab-section:hover {
+    background: none;
+    border-color: transparent;
+  }
+
+  .lab-section::before {
+    top: 10px;
+    left: 0;
+    font-size: 16px;
+    color: #9a9a9a;
+    -webkit-text-stroke: 0;
+  }
+
+  .section-icon {
+    color: #7a5f18;
+    background: #f6f6f6;
+    border-color: #cfcfcf;
+  }
+
+  .figure-frame,
+  .lab-table,
+  .code-block,
+  .note-box,
+  .reference-list li,
+  .info-box {
+    background: #fff !important;
+    border-color: #cfcfcf !important;
+    box-shadow: none;
+  }
+
+  .code-block,
+  .info-box {
+    border-left: 3px solid #b9932f;
+  }
+
+  .lab-table {
+    font-size: 10.5pt;
+    break-inside: avoid;
+  }
+
+  .lab-table th {
+    background: #f4f4f4;
+    border-bottom: 1px solid #cfcfcf;
+  }
+
+  .lab-table td {
+    border-bottom: 1px solid #e4e4e4;
+  }
+
+  .lab-table tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+
+  pre {
+    color: #1b1b1b;
+  }
+
+  .code-block::before {
+    color: #777;
+    background: none;
+  }
+
+  .figure-caption,
+  .lab-date,
+  .section-content em {
+    color: #555;
+  }
+
+  .lab-category--alt {
+    color: #555;
+    background: #fff;
+    border-color: #cfcfcf;
+  }
+
+  .custom-list li::before,
+  .figure-caption::before {
+    background: #8a6d1f;
+  }
+
+  .numbered-list li::before {
+    color: #6d5413;
+    background: #faf6e8;
+    border-color: #cfcfcf;
+  }
+
+  a {
+    color: #1b1b1b;
+    text-decoration: none;
+  }
+
+  .lab-figure,
+  .reference-list li {
+    break-inside: avoid;
+  }
+}

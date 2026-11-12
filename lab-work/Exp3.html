@@ -1,766 +1,311 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulation of Hydro Electric Power Plant</title>
-  
-  <!-- Google Fonts (matches main portfolio) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Ion Icons (matches main portfolio) -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-  <style>
-    :root {
-      --eerie-black-1: #121212;
-      --eerie-black-2: #1e1e1e;
-      --jet: #383838;
-      --light-gray: #d6d6d6;
-      --gold-crayola: #e6b86a;
-      --white: #ffffff;
-      --fs-6: 14px;
-      --fw-300: 300;
-      --fw-400: 400;
-      --fw-500: 500;
-      --fw-600: 600;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--eerie-black-1);
-      color: var(--light-gray);
-      min-height: 100vh;
-      padding: 20px;
-      line-height: 1.6;
-    }
-
-    .lab-container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* Header Section */
-    .lab-header {
-      background: linear-gradient(135deg, var(--eerie-black-2) 0%, #2a2a2a 100%);
-      border: 1px solid var(--jet);
-      border-radius: 20px 20px 0 0;
-      padding: 40px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .lab-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--gold-crayola), #f0d9a0, var(--gold-crayola));
-    }
-
-    .lab-icon {
-      font-size: 48px;
-      color: var(--gold-crayola);
-      margin-bottom: 15px;
-    }
-
-    .lab-title {
-      font-size: 32px;
-      font-weight: var(--fw-600);
-      color: var(--white);
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .lab-category {
-      display: inline-block;
-      background: rgba(230, 184, 106, 0.15);
-      color: var(--gold-crayola);
-      padding: 6px 20px;
-      border-radius: 20px;
-      font-size: var(--fs-6);
-      font-weight: var(--fw-500);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* Main Content */
-    .lab-main {
-      background: var(--eerie-black-2);
-      border-left: 1px solid var(--jet);
-      border-right: 1px solid var(--jet);
-      padding: 40px;
-    }
-
-    /* Section Styling */
-    .lab-section {
-      margin-bottom: 40px;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--gold-crayola);
-    }
-
-    .section-icon {
-      font-size: 24px;
-      color: var(--gold-crayola);
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: var(--fw-600);
-      color: var(--white);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .section-content {
-      padding-left: 36px;
-    }
-
-    .section-content p {
-      margin-bottom: 15px;
-      color: var(--light-gray);
-      font-weight: var(--fw-300);
-    }
-
-    /* Info Box */
-    .info-box {
-      background: rgba(230, 184, 106, 0.08);
-      border-left: 4px solid var(--gold-crayola);
-      padding: 16px 20px;
-      border-radius: 0 10px 10px 0;
-      margin: 20px 0;
-    }
-
-    .info-box strong {
-      color: var(--gold-crayola);
-    }
-
-    /* Tables */
-    .lab-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      background: var(--eerie-black-1);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .lab-table thead {
-      background: var(--jet);
-    }
-
-    .lab-table th {
-      padding: 14px 16px;
-      text-align: left;
-      font-weight: var(--fw-500);
-      color: var(--gold-crayola);
-      font-size: var(--fs-6);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .lab-table td {
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(56, 56, 56, 0.5);
-      color: var(--light-gray);
-      font-weight: var(--fw-300);
-    }
-
-    .lab-table tbody tr:hover {
-      background: rgba(230, 184, 106, 0.05);
-      transition: 0.3s;
-    }
-
-    .lab-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* Lists */
-    .custom-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .custom-list li {
-      position: relative;
-      padding-left: 28px;
-      margin-bottom: 12px;
-      color: var(--light-gray);
-      font-weight: var(--fw-300);
-    }
-
-    .custom-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 8px;
-      height: 8px;
-      background: var(--gold-crayola);
-      border-radius: 50%;
-    }
-
-    .numbered-list {
-      list-style: none;
-      counter-reset: step;
-      padding-left: 0;
-    }
-
-    .numbered-list li {
-      counter-increment: step;
-      position: relative;
-      padding-left: 40px;
-      margin-bottom: 16px;
-      color: var(--light-gray);
-      font-weight: var(--fw-300);
-    }
-
-    .numbered-list li::before {
-      content: counter(step);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 28px;
-      height: 28px;
-      background: var(--gold-crayola);
-      color: var(--eerie-black-1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: var(--fw-600);
-    }
-
-    /* Code Blocks */
-    .code-block {
-      background: var(--eerie-black-1);
-      border: 1px solid var(--jet);
-      border-radius: 10px;
-      padding: 20px;
-      overflow-x: auto;
-      margin: 20px 0;
-      position: relative;
-    }
-
-    .code-block::before {
-      content: 'CODE';
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      font-size: 10px;
-      color: var(--gold-crayola);
-      letter-spacing: 2px;
-      font-weight: var(--fw-600);
-    }
-
-    pre {
-      margin: 0;
-      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--light-gray);
-    }
-
-    /* Note Box */
-    .note-box {
-      background: rgba(56, 56, 56, 0.5);
-      border: 1px solid var(--jet);
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin: 20px 0;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .note-icon {
-      font-size: 20px;
-      color: var(--gold-crayola);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .note-box p {
-      margin: 0;
-      font-size: var(--fs-6);
-    }
-
-    /* References */
-    .reference-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .reference-list li {
-      padding: 12px 16px;
-      margin-bottom: 8px;
-      background: rgba(56, 56, 56, 0.3);
-      border-radius: 8px;
-      border-left: 3px solid var(--gold-crayola);
-      font-size: var(--fs-6);
-      font-weight: var(--fw-300);
-      transition: 0.3s;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      word-break: break-word;
-    }
-
-    .reference-list li:hover {
-      background: rgba(56, 56, 56, 0.5);
-      transform: translateX(5px);
-    }
-
-    /* Footer */
-    .lab-footer {
-      background: var(--eerie-black-2);
-      border: 1px solid var(--jet);
-      border-top: none;
-      border-radius: 0 0 20px 20px;
-      padding: 30px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: var(--gold-crayola);
-      color: var(--eerie-black-1);
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: var(--fw-500);
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .back-btn:hover {
-      background: #d4a85a;
-      transform: translateX(-5px);
-    }
-
-    .lab-date {
-      color: var(--light-gray);
-      font-size: var(--fs-6);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Responsive */
-    @media (max-width: 575px) {
-      body {
-        padding: 10px;
-      }
-
-      .lab-header,
-      .lab-main,
-      .lab-footer {
-        padding: 20px;
-      }
-
-      .lab-icon {
-        font-size: 36px;
-      }
-
-      .lab-title {
-        font-size: 20px;
-        letter-spacing: 0.5px;
-      }
-
-      .lab-category {
-        font-size: 11px;
-        padding: 4px 14px;
-      }
-
-      .lab-main {
-        padding: 20px;
-      }
-
-      .section-header {
-        gap: 8px;
-      }
-
-      .section-icon {
-        font-size: 20px;
-      }
-
-      .section-title {
-        font-size: 16px;
-      }
-
-      .section-content {
-        padding-left: 0;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-      }
-
-      .reference-list li {
-        padding: 10px 12px;
-        font-size: 12px;
-      }
-
-      .lab-table {
-        font-size: 12px;
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .lab-table th,
-      .lab-table td {
-        padding: 8px;
-        min-width: 80px;
-      }
-
-      .code-block {
-        padding: 15px;
-        font-size: 12px;
-      }
-
-      pre {
-        font-size: 12px;
-      }
-
-      .lab-footer {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .back-btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .info-box,
-      .note-box {
-        padding: 12px 15px;
-      }
-
-      .numbered-list li {
-        padding-left: 35px;
-      }
-
-      .custom-list li {
-        padding-left: 24px;
-      }
-    }
-
-    @media (min-width: 576px) and (max-width: 767px) {
-      .lab-title {
-        font-size: 28px;
-      }
-
-      .lab-header,
-      .lab-main,
-      .lab-footer {
-        padding: 30px;
-      }
-
-      .section-content {
-        padding-left: 20px;
-      }
-
-      .lab-table {
-        font-size: 13px;
-      }
-
-      .lab-table th,
-      .lab-table td {
-        padding: 10px;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .lab-title {
-        font-size: 32px;
-      }
-    }
-
-    @media (min-width: 992px) {
-      .lab-title {
-        font-size: 36px;
-      }
-    }
-
-    /* Print Styles */
-    @media print {
-      body {
-        background: white;
-        color: black;
-      }
-
-      .lab-header,
-      .lab-main,
-      .lab-footer {
-        border: 1px solid #ccc;
-      }
-
-      .back-btn {
-        display: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="lab-container">
-    <!-- Header Section -->
-    <header class="lab-header">
-      <ion-icon name="school-outline" class="lab-icon"></ion-icon>
-      <h1 class="lab-title">Hydro Electric Power Plant</h1>
-      <span class="lab-category">Electrical Power Generation</span>
-    </header>
-
-    <main class="lab-main">
-      <!-- DATE -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="calendar-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Date</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Simulation of Hydro Electric Power Plant | Ruzaid Ahamed</title>
+
+    <meta
+      name="description"
+      content="MATLAB/Simulink simulation of a hydro electric power plant — synchronous generator, three-phase transformer and load blocks analysed through the output active power waveform."
+    />
+    <meta name="author" content="Ruzaid Ahamed" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1e1e1e" />
+    <link rel="canonical" href="https://ruzait.github.io/lab-work/Exp3.html" />
+
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Simulation of Hydro Electric Power Plant | Ruzaid Ahamed"
+    />
+    <meta
+      property="og:description"
+      content="MATLAB/Simulink simulation of a hydro electric power plant — synchronous generator, transformer and load analysis via the output active power waveform."
+    />
+    <meta property="og:url" content="https://ruzait.github.io/lab-work/Exp3.html" />
+    <meta property="og:site_name" content="Ruzaid Ahamed Portfolio" />
+
+    <!-- Favicon and App Icons -->
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="../favicon-96x96.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../apple-touch-icon.png"
+    />
+
+    <!-- Google Fonts (matches main portfolio) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Ion Icons (matches main portfolio) -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <!-- Shared lab-report stylesheet -->
+    <link rel="stylesheet" href="../assets/css/lab.css" />
+  </head>
+
+  <body>
+    <div class="lab-container">
+      <!-- Header Section -->
+      <header class="lab-header">
+        <ion-icon name="school-outline" class="lab-icon" aria-hidden="true"></ion-icon>
+        <h1 class="lab-title">Hydro Electric Power Plant</h1>
+        <div class="lab-tags">
+          <span class="lab-category">Electrical Power Generation - ETE221TC3</span>
+          <span class="lab-category lab-category--alt">Semester 3</span>
         </div>
-        <div class="section-content">
-          <p><strong>02/03/2026</strong> (Monday)</p>
-        </div>
-      </section>
+      </header>
 
-      <!-- AIM/OBJECTIVES -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="flag-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Aim / Objectives</h2>
-        </div>
-        <div class="section-content">
-          <p>To design and simulate a hydro electric power plant using MATLAB/Simulink.</p>
-        </div>
-      </section>
-
-      <!-- NOTATION -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="list-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Notation</h2>
-        </div>
-        <div class="section-content">
-          <table class="lab-table">
-            <thead>
-              <tr>
-                <th>Notation</th>
-                <th>Description</th>
-                <th>Unit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>V</td>
-                <td>Voltage</td>
-                <td>Voltage (V)</td>
-              </tr>
-              <tr>
-                <td>I</td>
-                <td>Current</td>
-                <td>Amperes (A)</td>
-              </tr>
-              <tr>
-                <td>p</td>
-                <td>Power</td>
-                <td>Watts (W)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- INTRODUCTION -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="book-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Introduction</h2>
-        </div>
-        <div class="section-content">
-          <p>Hydroelectric power generation is one of the most reliable renewable energy sources. It converts the potential energy of stored water into mechanical energy using turbines, which is then converted into electrical energy using a synchronous generator. In this experiment, a hydroelectric power plant is simulated using MATLAB Simulink to analyze the output power characteristics.</p>
-        </div>
-      </section>
-
-      <!-- APPARATUS -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="construct-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Apparatus</h2>
-        </div>
-        <div class="section-content">
-          <ul class="custom-list">
-            <li>Computer with MATLAB Simulink</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- THEORY -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="school-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Theory</h2>
-        </div>
-        <div class="section-content">
-          <p>In a hydroelectric power plant, water stored at a height flows through a turbine, converting potential energy into mechanical energy. This mechanical energy drives a synchronous generator to produce electrical power. The generated voltage and power depend on turbine speed, generator parameters, and load conditions. Bus selectors are used in simulation to extract specific signals such as speed and power for analysis.</p>
-        </div>
-      </section>
-
-      <!-- CIRCUIT DIAGRAM -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="git-branch-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Circuit Diagram</h2>
-        </div>
-        <div class="section-content">
-          <figure style="margin: 20px 0; text-align: center;">
-            <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
-              <img src="imgs/hydro1.png" alt="Solar Power Generation Circuit Diagram" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
-            </div>
-            <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
-              Figure 1: Simulation model of hydro electric power plant
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- PROCEDURE -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="git-compare-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Procedure</h2>
-        </div>
-        <div class="section-content">
-          <ol class="numbered-list">
-            <li>A new Simulink blank model was created in MATLAB.</li>
-            <li>Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
-            <li>The simulation circuit was constructed according to the given diagram.</li>
-            <li>In the Bus Selector block, the following signals were selected: mechanical rotor speed wm (pu), output active power Peo (pu), mechanical rotor speed deviation dw (pu), and dq0 components stator voltage vq(pu).</li>
-            <li>Another Bus Selector block was used to extract the output active power Peo (pu) and connect it to the scope.</li>
-            <li>In the Synchronous Machine (pu Fundamental) block, the preset model of 50 Hz, 400 V, 8.1 kVA, 1500 RPM was selected.</li>
-            <li>In the Three-Phase Transformer block, winding-2 connection (abc terminals) was set to Delta (D1).</li>
-            <li>In the Three-Phase Series RLC Load blocks, the nominal frequency was set to 50 Hz, and both inductive reactive power QL and capacitive reactive power QC were set to zero.</li>
-            <li>In the Three-Phase Source block, the frequency was set to 50 Hz.</li>
-            <li>The simulation was run and the output active power waveform was observed using the scope.</li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- OBSERVATIONS -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="eye-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Observations</h2>
-        </div>
-        <div class="section-content">
+      <main class="lab-main">
+        <!-- DATE -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="calendar-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Date</h2>
+          </div>
           <div class="section-content">
-          <figure style="margin: 20px 0; text-align: center;">
-            <div style="background: var(--eerie-black-1); border: 1px solid var(--jet); border-radius: 10px; padding: 20px; margin-bottom: 15px; overflow: hidden;">
-              <img src="imgs/hydro2.png" alt="Simulated Output Voltage with Passive Filter" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;" />
-            </div>
-            <figcaption style="color: var(--light-gray); font-size: var(--fs-6); font-style: italic;">
-              Figure 2: Simulated output active power waveform
-            </figcaption>
-          </figure>
-        </div>
-      </section>
+            <p><strong>02/03/2026</strong> (Monday)</p>
+          </div>
+        </section>
 
-      <!-- RESULTS -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="stats-chart-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Results</h2>
-        </div>
-        <div class="section-content">
-          <p>The simulation of the hydro electric power plant was successfully carried out, and the output active power waveform was obtained.</p>
-        </div>
-      </section>
+        <!-- AIM/OBJECTIVES -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="flag-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Aim / Objectives</h2>
+          </div>
+          <div class="section-content">
+            <p>To design and simulate a hydro electric power plant using MATLAB/Simulink.</p>
+          </div>
+        </section>
 
-      <!-- DISCUSSION -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="chatbubble-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Discussion</h2>
-        </div>
-        <div class="section-content">
-          <p>A hydroelectric power plant works by converting the potential energy of water into mechanical energy using a turbine, which then drives a synchronous generator to produce electrical energy.</p>
-          <p>The output of a hydroelectric plant is affected by factors such as water head, flow rate, turbine efficiency, generator efficiency, and load conditions.</p>
-          <p>A synchronous generator operates by rotating a magnetic field within stator windings to induce an alternating voltage.</p>
-          <p>The powergui block is used to control simulation parameters and analysis type; discrete mode is used to improve simulation accuracy and stability in digital simulations.</p>
-        </div>
-      </section>
+        <!-- NOTATION -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="list-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Notation</h2>
+          </div>
+          <div class="section-content">
+            <table class="lab-table">
+              <thead>
+                <tr>
+                  <th scope="col">Notation</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Unit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>V</td>
+                  <td>Voltage</td>
+                  <td>Voltage (V)</td>
+                </tr>
+                <tr>
+                  <td>I</td>
+                  <td>Current</td>
+                  <td>Amperes (A)</td>
+                </tr>
+                <tr>
+                  <td>p</td>
+                  <td>Power</td>
+                  <td>Watts (W)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <!-- CONCLUSION -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="checkmark-done-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">Conclusion</h2>
-        </div>
-        <div class="section-content">
-          <p>The hydro electric power plant simulation was successfully performed using MATLAB Simulink. The output active power waveform was observed, confirming proper system operation.</p>
-        </div>
-      </section>
+        <!-- INTRODUCTION -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="book-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Introduction</h2>
+          </div>
+          <div class="section-content">
+            <p>Hydroelectric power generation is one of the most reliable renewable energy sources. It converts the potential energy of stored water into mechanical energy using turbines, which is then converted into electrical energy using a synchronous generator. In this experiment, a hydroelectric power plant is simulated using MATLAB Simulink to analyze the output power characteristics.</p>
+          </div>
+        </section>
 
-      <!-- REFERENCES -->
-      <section class="lab-section">
-        <div class="section-header">
-          <ion-icon name="library-outline" class="section-icon"></ion-icon>
-          <h2 class="section-title">References</h2>
-        </div>
-        <div class="section-content">
-          <ul class="reference-list">
-            <li>MATLAB Simulink Documentation: https://www.mathworks.com/help/simulink/</li>
-            <li>Hydroelectric Power Plant Simulation Guide: https://www.mathworks.com/help/physmod/sps/powersys/ref/hydro.html</li>
-            <li>Renewable Energy Systems: https://www.sciencedirect.com/topics/engineering/hydroelectric-power-plant</li>
-            <li>Fang, H., Chen, L., Dlakavu, N. and Shen, Z., 2008. Basic modeling and simulation tool for analysis of hydraulic transients in hydroelectric power plants. IEEE Transactions on energy conversion, 23(3), pp.834-841.</li>
-            <li>Gao, W., Li, H., Sun, Y. and Zhang, J., 2015. Simulation of hydroelectric power plant based on MATLAB/Simulink. In 2015 International Conference on Power System Technology (POWERCON) (pp. 1-6). IEEE.</li>
-            <li>Hossain, M.J., Pota, H.R. and Kalantar, M., 2017. Dynamic modeling and simulation of hydroelectric power plant for transient stability analysis. In 2017 IEEE Power & Energy Society General Meeting (PESGM) (pp. 1-5). IEEE.</li>
-          </ul>
-        </div>
-      </section>
-    </main>
+        <!-- APPARATUS -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="construct-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Apparatus</h2>
+          </div>
+          <div class="section-content">
+            <ul class="custom-list">
+              <li>Computer with MATLAB Simulink</li>
+            </ul>
+          </div>
+        </section>
 
-    <footer class="lab-footer">
-      <a href="../index.html" class="back-btn">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        <span>Back to Portfolio</span>
-      </a>
-      <div class="lab-date">
-        <ion-icon name="time-outline"></ion-icon>
-        <span>Lab completed: 02/03/2026</span>
-      </div>
-    </footer>
-  </div>
-</body>
+        <!-- THEORY -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="school-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Theory</h2>
+          </div>
+          <div class="section-content">
+            <p>In a hydroelectric power plant, water stored at a height flows through a turbine, converting potential energy into mechanical energy. This mechanical energy drives a synchronous generator to produce electrical power. The generated voltage and power depend on turbine speed, generator parameters, and load conditions. Bus selectors are used in simulation to extract specific signals such as speed and power for analysis.</p>
+          </div>
+        </section>
+
+        <!-- CIRCUIT DIAGRAM -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="git-branch-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Circuit Diagram</h2>
+          </div>
+          <div class="section-content">
+            <figure class="lab-figure">
+              <div class="figure-frame">
+                <img
+                  src="imgs/hydro1.png"
+                  alt="Hydro electric power plant — simulation model"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="figure-caption">
+                Figure 1: Simulation model of hydro electric power plant
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- PROCEDURE -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="git-compare-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Procedure</h2>
+          </div>
+          <div class="section-content">
+            <ol class="numbered-list">
+              <li>A new Simulink blank model was created in MATLAB.</li>
+              <li>Required components were selected from Simulink → Simscape → Electrical → Specialized Power Systems → Fundamental Blocks.</li>
+              <li>The simulation circuit was constructed according to the given diagram.</li>
+              <li>In the Bus Selector block, the following signals were selected: mechanical rotor speed wm (pu), output active power Peo (pu), mechanical rotor speed deviation dw (pu), and dq0 components stator voltage vq(pu).</li>
+              <li>Another Bus Selector block was used to extract the output active power Peo (pu) and connect it to the scope.</li>
+              <li>In the Synchronous Machine (pu Fundamental) block, the preset model of 50 Hz, 400 V, 8.1 kVA, 1500 RPM was selected.</li>
+              <li>In the Three-Phase Transformer block, winding-2 connection (abc terminals) was set to Delta (D1).</li>
+              <li>In the Three-Phase Series RLC Load blocks, the nominal frequency was set to 50 Hz, and both inductive reactive power QL and capacitive reactive power QC were set to zero.</li>
+              <li>In the Three-Phase Source block, the frequency was set to 50 Hz.</li>
+              <li>The simulation was run and the output active power waveform was observed using the scope.</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- OBSERVATIONS -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="eye-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Observations</h2>
+          </div>
+          <div class="section-content">
+            <figure class="lab-figure">
+              <div class="figure-frame">
+                <img
+                  src="imgs/hydro2.png"
+                  alt="Simulated output active power waveform"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="figure-caption">
+                Figure 2: Simulated output active power waveform
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- RESULTS -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="stats-chart-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Results</h2>
+          </div>
+          <div class="section-content">
+            <p>The simulation of the hydro electric power plant was successfully carried out, and the output active power waveform was obtained.</p>
+          </div>
+        </section>
+
+        <!-- DISCUSSION -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="chatbubble-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Discussion</h2>
+          </div>
+          <div class="section-content">
+            <p>A hydroelectric power plant works by converting the potential energy of water into mechanical energy using a turbine, which then drives a synchronous generator to produce electrical energy.</p>
+            <p>The output of a hydroelectric plant is affected by factors such as water head, flow rate, turbine efficiency, generator efficiency, and load conditions.</p>
+            <p>A synchronous generator operates by rotating a magnetic field within stator windings to induce an alternating voltage.</p>
+            <p>The powergui block is used to control simulation parameters and analysis type; discrete mode is used to improve simulation accuracy and stability in digital simulations.</p>
+          </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="checkmark-done-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">Conclusion</h2>
+          </div>
+          <div class="section-content">
+            <p>The hydro electric power plant simulation was successfully performed using MATLAB Simulink. The output active power waveform was observed, confirming proper system operation.</p>
+          </div>
+        </section>
+
+        <!-- REFERENCES -->
+        <section class="lab-section">
+          <div class="section-header">
+            <ion-icon name="library-outline" class="section-icon" aria-hidden="true"></ion-icon>
+            <h2 class="section-title">References</h2>
+          </div>
+          <div class="section-content">
+            <ul class="reference-list">
+              <li>MATLAB Simulink Documentation: https://www.mathworks.com/help/simulink/</li>
+              <li>Hydroelectric Power Plant Simulation Guide: https://www.mathworks.com/help/physmod/sps/powersys/ref/hydro.html</li>
+              <li>Renewable Energy Systems: https://www.sciencedirect.com/topics/engineering/hydroelectric-power-plant</li>
+              <li>Fang, H., Chen, L., Dlakavu, N. and Shen, Z., 2008. Basic modeling and simulation tool for analysis of hydraulic transients in hydroelectric power plants. IEEE Transactions on energy conversion, 23(3), pp.834-841.</li>
+              <li>Gao, W., Li, H., Sun, Y. and Zhang, J., 2015. Simulation of hydroelectric power plant based on MATLAB/Simulink. In 2015 International Conference on Power System Technology (POWERCON) (pp. 1-6). IEEE.</li>
+              <li>Hossain, M.J., Pota, H.R. and Kalantar, M., 2017. Dynamic modeling and simulation of hydroelectric power plant for transient stability analysis. In 2017 IEEE Power &amp; Energy Society General Meeting (PESGM) (pp. 1-5). IEEE.</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+
+      <footer class="lab-footer">
+        <a href="../index.html" class="back-btn">
+          <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+          <span>Back to Portfolio</span>
+        </a>
+        <div class="lab-date">
+          <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+          <span>Lab completed: 02/03/2026</span>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

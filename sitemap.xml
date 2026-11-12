@@ -2,25 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ruzait.github.io/</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://ruzait.github.io/cv.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ruzait.github.io/lab-work/Exp1.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ruzait.github.io/lab-work/Exp2.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://ruzait.github.io/lab-work/Exp3.html</loc>
-    <lastmod>2026-06-04</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
