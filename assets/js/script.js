@@ -402,35 +402,73 @@ if (form && formInputs.length > 0) {
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
+// readable URL hash for a page, e.g. "resume" -> "#Resume"
+function pageHash(pageName) {
+  let text = normalizeText(pageName);
+  return "#" + text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+// switch pages, sync the navbar and update the URL hash.
+// updateUrl is false when the change already came from the URL.
+function activatePage(targetPage, updateUrl) {
+
+  let pageText = normalizeText(targetPage);
+  let matched = false;
+
+  for (let j = 0; j < pages.length; j++) {
+    if (normalizeText(pages[j].dataset.page) === pageText) {
+      pages[j].classList.add("active");
+      matched = true;
+    } else {
+      pages[j].classList.remove("active");
+    }
+  }
+
+  if (!matched) return;
+
+  for (let k = 0; k < navigationLinks.length; k++) {
+    if (normalizeText(navigationLinks[k].innerHTML) === pageText) {
+      navigationLinks[k].classList.add("active");
+      navigationLinks[k].setAttribute("aria-current", "page");
+    } else {
+      navigationLinks[k].classList.remove("active");
+      navigationLinks[k].removeAttribute("aria-current");
+    }
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (updateUrl === false) return;
+
+  let hash = pageHash(pageText);
+
+  if (window.location.hash !== hash) {
+    try {
+      window.history.pushState(null, "", hash);
+    } catch (error) {
+      window.location.hash = hash;
+    }
+  }
+}
+
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
-
-    let navText = normalizeText(this.innerHTML);
-    let clickedBtn = this;
-
-    for (let j = 0; j < pages.length; j++) {
-      let pageText = normalizeText(pages[j].dataset.page);
-
-      if (navText === pageText) {
-        pages[j].classList.add("active");
-        clickedBtn.classList.add("active");
-        clickedBtn.setAttribute("aria-current", "page");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        pages[j].classList.remove("active");
-      }
-    }
-
-    for (let k = 0; k < navigationLinks.length; k++) {
-      if (navigationLinks[k] !== clickedBtn) {
-        navigationLinks[k].classList.remove("active");
-        navigationLinks[k].removeAttribute("aria-current");
-      }
-    }
-
+    activatePage(this.innerHTML, true);
   });
 }
+
+// deep link support — opening index.html#Resume shows the Resume page
+if (window.location.hash) {
+  activatePage(window.location.hash.slice(1), false);
+}
+
+// keep the page in sync with back / forward navigation.
+// an empty hash means the browser went back to the clean URL,
+// which is the default (About) page.
+window.addEventListener("hashchange", function () {
+  activatePage(window.location.hash.slice(1) || "about", false);
+});
 
 // hero call-to-action navigation
 // triggers the matching navbar button so the existing
